@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deals Page Vision, Layne Skullerud</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#10131a;
+    --panel:#181c25;
+    --panel-2:#1e232e;
+    --line: rgba(240,238,230,0.09);
+    --ink:#f0ede4;
+    --ink-dim:#8b93a1;
+    --gold:#e3a939;
+    --gold-soft: rgba(227,169,57,0.14);
+    --down:#e0665f;
+    --up:#6fbf8c;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--void);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .mono{
+    font-family:'IBM Plex Mono',monospace;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+  }
+  .wrap{max-width:940px;margin:0 auto;padding:0 32px;}
+
+  /* Review-altitude eyebrow, signature element: this case study is about climbing review levels */
+  .altitude{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:11px;
+    color:var(--gold);
+    margin-bottom:18px;
+  }
+  .altitude .tick{
+    flex:0 0 auto;
+    padding:4px 10px;
+    border:1px solid var(--gold);
+    border-radius:999px;
+  }
+  .altitude .track{
+    flex:1 1 auto;
+    height:1px;
+    background:linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  header{
+    padding:96px 0 72px;
+    border-bottom:1px solid var(--line);
+    position:relative;
+    overflow:hidden;
+  }
+  header::before{
+    content:"";
+    position:absolute;
+    top:-40%; right:-10%;
+    width:560px;height:560px;
+    background:radial-gradient(circle, var(--gold-soft), transparent 70%);
+    pointer-events:none;
+  }
+  .eyebrow{font-size:12px; color:var(--gold); margin-bottom:20px;}
+  h1.hero-title{
+    font-size:clamp(36px, 5.6vw, 60px);
+    line-height:1.06;
+    max-width:17ch;
+  }
+  .hero-sub{
+    margin-top:22px;
+    font-size:19px;
+    color:var(--ink-dim);
+    max-width:56ch;
+  }
+  .tag-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:36px;}
+  .tag{
+    font-size:11px;
+    padding:7px 12px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    color:var(--ink-dim);
+  }
+  .tag b{color:var(--ink); font-weight:600;}
+
+  section{padding:72px 0;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .section-title{font-size:29px; margin-bottom:28px; max-width:22ch;}
+  .lede{font-size:17px; color:var(--ink-dim); max-width:66ch; margin-bottom:8px;}
+
+  /* Brief spec sheet */
+  .spec-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    margin-top:32px;
+  }
+  .spec{background:var(--panel); padding:22px 24px;}
+  .spec .k{font-size:10px;color:var(--gold);margin-bottom:8px;}
+  .spec .v{font-size:14.5px;color:var(--ink); line-height:1.5;}
+  @media(max-width:640px){.spec-grid{grid-template-columns:1fr;}}
+
+  /* Stakeholder tri-view */
+  .stake-row{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+    margin-top:32px;
+  }
+  .stake{
+    padding:22px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:12px;
+  }
+  .stake .who{font-size:15px; font-weight:600; margin-bottom:6px;}
+  .stake .cares{font-size:12.5px; color:var(--gold); margin-bottom:10px;}
+  .stake p{font-size:13.5px; color:var(--ink-dim); margin:0;}
+  @media(max-width:700px){.stake-row{grid-template-columns:1fr;}}
+
+  /* Problem list */
+  .problem{
+    display:grid;
+    grid-template-columns:44px 1fr;
+    gap:20px;
+    padding:26px 0;
+    border-top:1px solid var(--line);
+  }
+  .problem:first-of-type{border-top:none;}
+  .problem .idx{font-family:'Space Grotesk',sans-serif; font-size:22px; color:var(--gold);}
+  .problem h3{font-size:16.5px; margin-bottom:8px;}
+  .problem p{font-size:14.5px; color:var(--ink-dim); margin:0 0 10px;}
+  .problem .stat-pill{
+    display:inline-block;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    padding:4px 9px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    color:var(--ink);
+    margin-right:8px;
+    margin-top:4px;
+  }
+  .problem q{
+    display:block;
+    margin-top:10px;
+    font-size:13.5px;
+    color:var(--ink-dim);
+    font-style:italic;
+    border-left:2px solid var(--line);
+    padding-left:12px;
+  }
+
+  /* PD26 learnings, bar comparisons */
+  .learning{
+    padding:26px 0;
+    border-top:1px solid var(--line);
+  }
+  .learning:first-of-type{border-top:none;}
+  .learning h3{font-size:16px; margin-bottom:8px;}
+  .learning p{font-size:14px; color:var(--ink-dim); margin:0 0 16px; max-width:66ch;}
+  .bar-comp{display:flex; flex-direction:column; gap:8px; max-width:520px;}
+  .bar-row{display:grid; grid-template-columns:120px 1fr 90px; gap:12px; align-items:center;}
+  .bar-row .label{font-size:11.5px; color:var(--ink-dim);}
+  .bar-track{height:8px; background:var(--panel-2); border-radius:4px; overflow:hidden;}
+  .bar-fill{height:100%; border-radius:4px;}
+  .bar-fill.up{background:var(--up);}
+  .bar-fill.down{background:var(--down);}
+  .bar-row .val{font-family:'IBM Plex Mono',monospace; font-size:12px; text-align:right;}
+  .val.up{color:var(--up);}
+  .val.down{color:var(--down);}
+
+  /* Ownership cards */
+  .theme-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:32px;}
+  .theme{
+    padding:24px;
+    background:linear-gradient(160deg, var(--panel-2), var(--panel));
+    border:1px solid var(--gold);
+    border-radius:12px;
+  }
+  .theme .p0{
+    display:inline-block;
+    font-size:10px;
+    color:var(--gold);
+    border:1px solid var(--gold);
+    padding:2px 8px;
+    border-radius:999px;
+    margin-bottom:12px;
+  }
+  .theme h3{font-size:17px; margin-bottom:8px;}
+  .theme p{font-size:13.5px; color:var(--ink-dim); margin:0;}
+  @media(max-width:700px){.theme-grid{grid-template-columns:1fr;}}
+
+  /* Principles */
+  .principles{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:32px;}
+  .principle{padding:24px; background:var(--panel); border-radius:12px; border:1px solid var(--line);}
+  .principle .num{font-size:11px; color:var(--gold); margin-bottom:12px;}
+  .principle h3{font-size:16px; margin-bottom:8px;}
+  .principle p{font-size:13.5px; color:var(--ink-dim); margin:0;}
+  @media(max-width:700px){.principles{grid-template-columns:1fr;}}
+
+  .pull{
+    margin:40px 0 0;
+    padding:32px 36px;
+    background:var(--panel);
+    border-left:3px solid var(--gold);
+    border-radius:0 12px 12px 0;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:21px;
+    line-height:1.4;
+  }
+  .pull span{color:var(--ink-dim); font-family:'Inter',sans-serif; font-size:13px; display:block; margin-top:14px;}
+
+  /* Timeline arc */
+  .arc{margin-top:40px; display:grid; gap:0;}
+  .arc-item{
+    display:grid;
+    grid-template-columns:140px 20px 1fr;
+    gap:0;
+  }
+  .arc-item .when{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gold); padding-top:3px;}
+  .arc-item .rail{display:flex; flex-direction:column; align-items:center;}
+  .arc-item .dot{width:9px; height:9px; border-radius:50%; background:var(--gold); margin-top:4px;}
+  .arc-item .line{flex:1; width:1px; background:var(--line); margin-top:4px;}
+  .arc-item:last-child .line{display:none;}
+  .arc-item .content{padding-bottom:32px;}
+  .arc-item .content h3{font-size:15.5px; margin-bottom:4px;}
+  .arc-item .content p{font-size:13.5px; color:var(--ink-dim); margin:0;}
+  .arc-item.final .content h3{color:var(--gold);}
+  @media(max-width:640px){.arc-item{grid-template-columns:90px 16px 1fr;}}
+
+  .closing{
+    font-size:20px;
+    font-family:'Space Grotesk',sans-serif;
+    line-height:1.5;
+    max-width:64ch;
+  }
+  .closing b{color:var(--gold);}
+
+  footer{padding:64px 0 80px; text-align:center;}
+  footer .name{font-size:15px; font-weight:600;}
+  footer .role{font-size:13px; color:var(--ink-dim); margin-top:6px;}
+
+  .back-nav{position:sticky; top:0; z-index:50; padding:14px 32px; font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; backdrop-filter:blur(6px);}
+  .back-nav a{color:inherit; text-decoration:none; opacity:0.7;}
+  .back-nav a:hover{opacity:1;}
+</style>
+</head>
+<body>
+<div class="back-nav" style="background:rgba(16,19,26,0.85); color:#e3a939; border-bottom:1px solid rgba(255,255,255,0.08);"><a href="index.html">&larr; Portfolio</a></div>
+
+
+<header>
+  <div class="wrap">
+<div class="eyebrow mono">Amazon · 2026</div>
+    <h1 class="hero-title">One page moves $244B a year. Redesigning it for three VPs at once.</h1>
+    <p class="hero-sub">Vision redesign for Amazon's Deals Page, the primary savings destination for hundreds of millions of customers, built from live Prime Day 2026 experiment data and taken to SVP review.</p>
+    <div class="tag-row">
+      <div class="tag"><b>Role</b> · Lead Designer, full scope</div>
+      <div class="tag"><b>Scope</b> · Business-as-usual + High Velocity Events</div>
+      <div class="tag"><b>Review</b> · SVP, VP Merchandising, VP Pricing</div>
+      <div class="tag"><b>Status</b> · SVP review Aug 17–21, 2026</div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">The brief</h2>
+    <p class="lede">WWPE and NASM kicked off a vision redesign of the Deals Page for SVP review, with a compressed six-week design window inside a longer cross-org alignment process.</p>
+    <div class="spec-grid">
+      <div class="spec"><div class="k mono">Surface</div><div class="v">Amazon's primary savings destination, daily browsing plus peak events like Prime Day and BFCM</div></div>
+      <div class="spec"><div class="k mono">Deliverable</div><div class="v">A 4-page vision document plus a design companion covering problems, solutions, and future-state CX</div></div>
+      <div class="spec"><div class="k mono">Design window</div><div class="v">~6 weeks from kickoff to deck lock, ahead of L8 sponsor, VP, and SVP reviews</div></div>
+      <div class="spec"><div class="k mono">Reviewers</div><div class="v">4 L8 sponsors, 3 VP/SVPs, cross-org stakeholders across WWPE, PCX, HVE, NASM, and ACES</div></div>
+    </div>
+
+    <div class="stake-row">
+      <div class="stake">
+        <div class="who">SVP</div>
+        <div class="cares mono">Overall CX</div>
+        <p>Needs the vision to read as one coherent customer experience, not a list of features.</p>
+      </div>
+      <div class="stake">
+        <div class="who">VP, NASM</div>
+        <div class="cares mono">Merchandising & Brand Discovery</div>
+        <p>Cares about merchandising strength and brand discovery across the page.</p>
+      </div>
+      <div class="stake">
+        <div class="who">VP, Pricing</div>
+        <div class="cares mono">Trust & Transparency</div>
+        <p>Cares about pricing transparency and customer trust in every deal shown.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">The problem space</h2>
+    <p class="lede">Years of incremental additions left the page without a cohesive vision, and Prime Day 2026 exposed exactly where it was cracking.</p>
+
+    <div class="problem">
+      <div class="idx mono">01</div>
+      <div>
+        <h3>Customers can't find relevant deals</h3>
+        <p>A one-size-fits-all ranking model shows every customer the same deals, based on forecasted sales rather than who they are.</p>
+        <span class="stat-pill">77% expected personalization</span><span class="stat-pill">55% felt they got it</span>
+        <q>"I feel like you have to go through a lot of stuff you're not interested in to get to just a couple items you may be interested in."</q>
+      </div>
+    </div>
+
+    <div class="problem">
+      <div class="idx mono">02</div>
+      <div>
+        <h3>The experience is overwhelming</h3>
+        <p>Two competing navigation systems, navigation tabs and a visual sub-nav, add cognitive load instead of reducing it.</p>
+        <span class="stat-pill">~90% only use the first 3 of 20+ navigation tabs</span>
+      </div>
+    </div>
+
+    <div class="problem">
+      <div class="idx mono">03</div>
+      <div>
+        <h3>Browsers get no inspiration</h3>
+        <p>A uniform ASIN grid is built for transactional efficiency, not for the browsing and inspiration-seeking most visitors actually want.</p>
+        <span class="stat-pill">44% browse with no specific intent</span><span class="stat-pill">27% actively seek inspiration</span>
+      </div>
+    </div>
+
+    <div class="problem">
+      <div class="idx mono">04</div>
+      <div>
+        <h3>The page ignores journey context</h3>
+        <p>No adaptation for entry point, customer type, or shopping mission, a huge share of visitors land on a degraded, disconnected experience.</p>
+        <span class="stat-pill">35–40% arrive from Homepage recommenders</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">What Prime Day 2026 taught us</h2>
+    <p class="lede">Layne was already designing the Deals Page CX for PD26, and the live results from that event directly shaped the vision.</p>
+
+    <div class="learning">
+      <h3>Personalized ranking works</h3>
+      <p>Every personalized ranking treatment increased both deal sales and annualized sales, with 100% probability of a positive result. Clear signal to scale worldwide.</p>
+      <div class="bar-comp">
+        <div class="bar-row"><span class="label">Deal sales</span><div class="bar-track"><div class="bar-fill up" style="width:75%"></div></div><span class="val up">$27.7M → $31M</span></div>
+        <div class="bar-row"><span class="label">Annualized sales</span><div class="bar-track"><div class="bar-fill up" style="width:90%"></div></div><span class="val up">$46.8M → $62.8M</span></div>
+      </div>
+    </div>
+
+    <div class="learning">
+      <h3>Navigation exposes a personalization gap</h3>
+      <p>New mobile navigation more than doubled category filter usage, but because filtered results weren't personalized, US deal sales dropped. Customers want to narrow their experience without losing relevance.</p>
+      <div class="bar-comp">
+        <div class="bar-row"><span class="label">Filter clicks</span><div class="bar-track"><div class="bar-fill up" style="width:85%"></div></div><span class="val up">1.6M → 3.5M</span></div>
+        <div class="bar-row"><span class="label">US deal sales</span><div class="bar-track"><div class="bar-fill down" style="width:20%"></div></div><span class="val down">−$2.99M</span></div>
+      </div>
+    </div>
+
+    <div class="learning">
+      <h3>Conversational AI needs to stay in-context</h3>
+      <p>The "Ask Alexa" ingress, which sent customers off the page, had neutral impact. The hypothesis: AI needs to live inside the shopping context, not act as an off-ramp.</p>
+      <div class="bar-comp">
+        <div class="bar-row"><span class="label">Deal sales</span><div class="bar-track"><div class="bar-fill up" style="width:15%"></div></div><span class="val up">$657K (neutral)</span></div>
+      </div>
+    </div>
+
+    <div class="learning">
+      <h3>Broad discovery without personalization hurts</h3>
+      <p>Replacing personalized shovelers with non-personalized collections, and pushing the grid below the fold, cost real value. Anything that replaces a personalized surface must itself be personalized.</p>
+      <div class="bar-comp">
+        <div class="bar-row"><span class="label">Annualized sales / visit</span><div class="bar-track"><div class="bar-fill down" style="width:35%"></div></div><span class="val down">−13% YoY</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">Scope of ownership</h2>
+    <p class="lede">As Lead Designer, Layne owns the vision end to end, business-as-usual and High Velocity Events alike. Four themes carry the highest priority in the H2 roadmap.</p>
+    <div class="theme-grid">
+      <div class="theme">
+        <div class="p0 mono">P0</div>
+        <h3>High Velocity Events</h3>
+        <p>Owning the CX for peak events like Prime Day and BFCM, both the lead-up experience and day-of, on top of the business-as-usual Deals Page.</p>
+      </div>
+      <div class="theme">
+        <div class="p0 mono">P0</div>
+        <h3>Contextualized AI Deal Prompts</h3>
+        <p>Personalized deal prompts embedded directly in the page, contextualized to the customer's mission, moving beyond the PD26 "Ask Alexa" off-ramp toward in-context conversational discovery. A direct continuation of her SoleMate and Prime Merchandising Agent work.</p>
+      </div>
+      <div class="theme">
+        <div class="p0 mono">P0</div>
+        <h3>Unified Navigation</h3>
+        <p>Consolidating two redundant navigation systems, navigation tabs and visual sub-nav, into one cohesive system that reduces complexity without sacrificing personalization.</p>
+      </div>
+      <div class="theme">
+        <div class="p0 mono">P0</div>
+        <h3>Today's Big Deals, above the fold</h3>
+        <p>Bringing personalized recommendations above the fold, so customers see relevant deals immediately instead of scrolling past generic content.</p>
+      </div>
+      <div class="theme">
+        <div class="p0 mono">P0</div>
+        <h3>Navigation Tabs</h3>
+        <p>Reducing 20+ manually curated navigation tabs to a focused, automated, personalized set built around high-intent and discovery use cases.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">The design philosophy</h2>
+    <p class="lede">Resolving the tension between personalization and discovery through a layered approach.</p>
+    <div class="principles">
+      <div class="principle">
+        <div class="num mono">Foundation</div>
+        <h3>Personalization as the foundation, not the ceiling</h3>
+        <p>The grid, the navigation, and even the inspiration content all become personally relevant, proven by the PD26 ranking results.</p>
+      </div>
+      <div class="principle">
+        <div class="num mono">Adaptation</div>
+        <h3>Context-aware adaptation</h3>
+        <p>The page adapts by entry point, customer type, and mindset, building on Layne's earlier journey-aware tenets from NTA CX work.</p>
+      </div>
+      <div class="principle">
+        <div class="num mono">AI</div>
+        <h3>AI as an accessible layer, not a replacement</h3>
+        <p>Conversational prompts help customers refine intent, but the core experience never requires AI engagement, the same guided-over-chatbot instinct from SoleMate.</p>
+      </div>
+      <div class="principle">
+        <div class="num mono">Simplicity</div>
+        <h3>Unified simplicity</h3>
+        <p>One navigation, not two. Fewer navigation tabs, not more. Trust cues on faceouts so customers can act without leaving the page.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">The hard part</h2>
+    <p class="lede">Designing for a $244B/year surface, with live experiment data landing mid-process, for three VPs who each care about something different.</p>
+    <div class="pull">
+      "Nine themes, three VPs, one coherent story."
+      <span>Merchandising, pricing trust, and overall customer experience all have to read as a single unified vision, not a feature list, inside a six-week design window.</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">Part of a year-long arc</h2>
+    <p class="lede">The Deals Page Vision is the culmination of a year of increasing scope in the promotions and savings space, Layne's fourth SVP-level presentation in this review period.</p>
+    <div class="arc">
+      <div class="arc-item">
+        <div class="when">MAY 2026</div>
+        <div class="rail"><div class="dot"></div><div class="line"></div></div>
+        <div class="content">
+          <h3>Savings CX Review</h3>
+          <p>Presented to L10 on critical pain points across Detail Page, basket building, and Homepage promotions; proposed a restructured deals hierarchy.</p>
+        </div>
+      </div>
+      <div class="arc-item">
+        <div class="when">JUL 2026</div>
+        <div class="rail"><div class="dot"></div><div class="line"></div></div>
+        <div class="content">
+          <h3>PCX Vision Deck</h3>
+          <p>Established the strategic narrative for promotions CX at L10 review.</p>
+        </div>
+      </div>
+      <div class="arc-item">
+        <div class="when">APR 2026</div>
+        <div class="rail"><div class="dot"></div><div class="line"></div></div>
+        <div class="content">
+          <h3>Prime Day 2026 Walk the Store</h3>
+          <p>Presented the full-store event CX to SVPs, including the Deals Page, the presentation that shaped the direction taken to the next level here.</p>
+        </div>
+      </div>
+      <div class="arc-item final">
+        <div class="when">AUG 2026</div>
+        <div class="rail"><div class="dot"></div></div>
+        <div class="content">
+          <h3>Deals Page Vision, SVP Review</h3>
+          <p>The culminating artifact: a full surface redesign vision for Amazon's primary savings destination.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="closing">Owning design vision for one of Amazon's highest-traffic surfaces, translating live experiment data into forward-looking CX direction, and aligning three VPs on <b>what Amazon's savings experience should be for the next 2–3 years.</b></p>
+  </div>
+</section>
+
+<footer>
+  <div class="name">Layne Skullerud</div>
+  <div class="role mono">UX Design Leader · layne.skullerud@gmail.com</div>
+</footer>
+
+</body>
+</html>
