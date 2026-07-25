@@ -66,7 +66,9 @@
   .card .go{position:absolute; top:24px; right:24px; font-size:10px; color:var(--ink); background:rgba(240,238,246,0.08); border:1px solid var(--line); border-radius:999px; padding:4px 10px; font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:0.05em; display:flex; align-items:center; gap:5px;}
   .card .go .dot{width:5px; height:5px; border-radius:50%; background:var(--accent-dot, currentColor);}
   a.card:hover .go{background:rgba(240,238,246,0.14);}
-  .card.static{cursor:default;}
+  .card.static{cursor:default; opacity:0.78;}
+  .card .go-static{color:var(--ink-dim); background:transparent;}
+  .card .go-static .dot{background:var(--ink-dim); opacity:0.5;}
 
   footer{padding:0 0 80px; text-align:center; border-top:1px solid var(--line); margin-top:0;}
   footer .inner{padding-top:40px;}
@@ -91,7 +93,7 @@
 <header>
   <div class="wrap">
     <h1>The full body of work.</h1>
-    <p class="hero-sub">Fifteen years across AI, fashion, loyalty, and travel commerce. Filter by category, or browse everything below. Cards marked "Case study" open into a full write-up.</p>
+    <p class="hero-sub">Fifteen years across AI, fashion, loyalty, and travel commerce. Filter by category, or browse everything below. Cards marked "Case study" open into a full write-up; cards marked "Summary" are a quick overview only.</p>
   </div>
 </header>
 
@@ -304,7 +306,7 @@ function renderGrid() {
     el.style.setProperty('--accent', w.accent);
     el.innerHTML = `
       <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${w.accent}"></div>
-      ${w.href ? `<div class="go" style="--accent-dot:${w.accent}"><span class="dot"></span>Case study</div>` : ''}
+      ${w.href ? `<div class="go" style="--accent-dot:${w.accent}"><span class="dot"></span>Case study</div>` : `<div class="go go-static"><span class="dot"></span>Summary</div>`}
       <div class="card-eyebrow mono">${w.eyebrow}</div>
       <h3>${w.title}</h3>
       <p>${w.desc}</p>
