@@ -46,7 +46,13 @@
   .pill.active .dot{background:var(--void); opacity:1;}
   .pill .count{opacity:0.6; font-size:10px;}
 
-  .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:18px; padding:44px 0 100px;}
+  .group{margin-top:8px;}
+  .group:first-of-type{margin-top:0;}
+  .group-header{padding-top:44px;}
+  .group-header h2{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px; letter-spacing:-0.01em;}
+  .group-header p{font-size:13px; color:var(--ink-dim); margin-top:6px;}
+  .group.empty{display:none;}
+  .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:18px; padding:22px 0 56px;}
   .card{
     display:block; text-decoration:none; color:inherit;
     position:relative; overflow:hidden;
@@ -66,8 +72,14 @@
   .card .go{position:absolute; top:24px; right:24px; font-size:10px; color:var(--ink); background:rgba(240,238,246,0.08); border:1px solid var(--line); border-radius:999px; padding:4px 10px; font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:0.05em; display:flex; align-items:center; gap:5px;}
   .card .go .dot{width:5px; height:5px; border-radius:50%; background:var(--accent-dot, currentColor);}
   a.card:hover .go{background:rgba(240,238,246,0.14);}
-  .card.static{cursor:default; opacity:0.78;}
-  .card .go-static{color:var(--ink-dim); background:transparent;}
+  .card.static{
+    cursor:default; opacity:0.82;
+    border-style:dashed;
+    background:transparent;
+  }
+  .card.static::before{display:none;}
+  .card.static .card-eyebrow{padding-right:90px;}
+  .card .go-static{color:var(--ink-dim); background:transparent; border-style:dashed;}
   .card .go-static .dot{background:var(--ink-dim); opacity:0.5;}
 
   footer{padding:0 0 80px; text-align:center; border-top:1px solid var(--line); margin-top:0;}
@@ -93,7 +105,7 @@
 <header>
   <div class="wrap">
     <h1>The full body of work.</h1>
-    <p class="hero-sub">Fifteen years across AI, fashion, loyalty, and travel commerce. Filter by category, or browse everything below. Cards marked "Case study" open into a full write-up; cards marked "Summary" are a quick overview only.</p>
+    <p class="hero-sub">Fifteen years across AI, fashion, loyalty, and travel commerce. Filter by category, or browse everything below.</p>
   </div>
 </header>
 
@@ -104,7 +116,14 @@
 </div>
 
 <section class="wrap">
-  <div class="grid" id="grid"></div>
+  <div class="group" id="group-cases">
+    <div class="group-header"><h2>Case Studies</h2></div>
+    <div class="grid" id="grid-cases"></div>
+  </div>
+  <div class="group" id="group-summaries">
+    <div class="group-header"><h2>Summaries</h2></div>
+    <div class="grid" id="grid-summaries"></div>
+  </div>
 </section>
 
 <footer>
@@ -258,7 +277,10 @@ const WORK = [
 ];
 
 const pillsEl = document.getElementById('pills');
-const gridEl = document.getElementById('grid');
+const gridCasesEl = document.getElementById('grid-cases');
+const gridSummariesEl = document.getElementById('grid-summaries');
+const groupCasesEl = document.getElementById('group-cases');
+const groupSummariesEl = document.getElementById('group-summaries');
 const urlParams = new URLSearchParams(window.location.search);
 const initialFilter = urlParams.get('f');
 let active = (initialFilter && CATS[initialFilter]) ? initialFilter : null;
@@ -296,12 +318,16 @@ function renderPills() {
 }
 
 function renderGrid() {
-  gridEl.innerHTML = '';
+  gridCasesEl.innerHTML = '';
+  gridSummariesEl.innerHTML = '';
+  let casesShown = 0;
+  let summariesShown = 0;
   WORK.forEach(w => {
     const show = active === null || w.cats.includes(active);
+    if (!show) return;
     const tag = w.href ? 'a' : 'div';
     const el = document.createElement(tag);
-    el.className = 'card' + (w.href ? '' : ' static') + (show ? '' : ' hidden');
+    el.className = 'card' + (w.href ? '' : ' static');
     if (w.href) el.href = w.href + (active ? '?f=' + active : '');
     el.style.setProperty('--accent', w.accent);
     el.innerHTML = `
@@ -314,8 +340,16 @@ function renderGrid() {
         ${w.cats.map(c => `<div class="cat">${CATS[c].label}</div>`).join('')}
       </div>
     `;
-    gridEl.appendChild(el);
+    if (w.href) {
+      gridCasesEl.appendChild(el);
+      casesShown++;
+    } else {
+      gridSummariesEl.appendChild(el);
+      summariesShown++;
+    }
   });
+  groupCasesEl.classList.toggle('empty', casesShown === 0);
+  groupSummariesEl.classList.toggle('empty', summariesShown === 0);
 }
 
 function render() {
