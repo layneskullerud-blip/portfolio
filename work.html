@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layne Skullerud · Work</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0b0b0d;
+    --ink:#f1eef7;
+    --ink-dim:#8f8b9c;
+    --line: rgba(240,238,246,0.09);
+    --card: #111116;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--void); color:var(--ink); font-family:'Inter',sans-serif; line-height:1.55; -webkit-font-smoothing:antialiased;}
+  h1,h2{font-family:'Space Grotesk',sans-serif; font-weight:700; margin:0; letter-spacing:-0.01em;}
+  .mono{font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:0.08em;}
+  .wrap{max-width:1100px; margin:0 auto; padding:0 32px;}
+
+  header{padding:96px 0 56px;}
+  .eyebrow{font-size:12px; color:var(--ink-dim); margin-bottom:20px;}
+  h1{font-size:clamp(32px,5vw,52px); line-height:1.08; max-width:18ch;}
+  .hero-sub{margin-top:22px; font-size:17px; color:var(--ink-dim); max-width:58ch;}
+
+  /* Filter bar, the signature element: pills that actually filter, with live counts */
+  .filter-bar{
+    position:sticky; top:0; z-index:10;
+    background:rgba(11,11,13,0.92); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding:18px 0;
+  }
+  .pills{display:flex; flex-wrap:wrap; gap:8px;}
+  .pill{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.06em;
+    padding:8px 14px; border-radius:999px; border:1px solid var(--line);
+    background:transparent; color:var(--ink-dim); cursor:pointer;
+    transition:all 0.15s ease; display:flex; align-items:center; gap:7px;
+  }
+  .pill:hover{border-color:rgba(240,238,246,0.25); color:var(--ink);}
+  .pill .dot{width:7px; height:7px; border-radius:50%; background:currentColor; opacity:0.6;}
+  .pill.active{color:var(--void); border-color:transparent;}
+  .pill.active .dot{background:var(--void); opacity:1;}
+  .pill .count{opacity:0.6; font-size:10px;}
+
+  .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:18px; padding:44px 0 100px;}
+  .card{
+    display:block; text-decoration:none; color:inherit;
+    position:relative; overflow:hidden;
+    border:1px solid var(--line); border-radius:14px;
+    padding:26px 26px 24px;
+    background:var(--card);
+    transition:transform 0.15s ease, border-color 0.15s ease, opacity 0.2s ease;
+  }
+  a.card:hover{transform:translateY(-2px); border-color:rgba(240,238,246,0.2);}
+  .card::before{content:""; position:absolute; top:0; left:0; right:0; height:3px;}
+  .card.hidden{display:none;}
+  .card-eyebrow{font-size:10.5px; margin-bottom:12px; color:var(--ink-dim); padding-right:100px;}
+  .card h3{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:19px; margin-bottom:9px; max-width:26ch; letter-spacing:-0.01em;}
+  .card p{font-size:13.5px; color:var(--ink-dim); margin:0 0 16px; max-width:60ch;}
+  .card .cat-row{display:flex; flex-wrap:wrap; gap:6px;}
+  .card .cat{font-size:10px; padding:4px 9px; border:1px solid var(--line); border-radius:5px; color:var(--ink-dim); font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:0.05em;}
+  .card .go{position:absolute; top:24px; right:24px; font-size:10px; color:var(--ink); background:rgba(240,238,246,0.08); border:1px solid var(--line); border-radius:999px; padding:4px 10px; font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:0.05em; display:flex; align-items:center; gap:5px;}
+  .card .go .dot{width:5px; height:5px; border-radius:50%; background:var(--accent-dot, currentColor);}
+  a.card:hover .go{background:rgba(240,238,246,0.14);}
+  .card.static{cursor:default;}
+
+  footer{padding:0 0 80px; text-align:center; border-top:1px solid var(--line); margin-top:0;}
+  footer .inner{padding-top:40px;}
+  footer .name{font-size:15px; font-weight:600;}
+  footer .role{font-size:13px; color:var(--ink-dim); margin-top:6px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow mono">Portfolio · Layne Skullerud</div>
+    <h1>The full body of work.</h1>
+    <p class="hero-sub">Fifteen years across AI, fashion, loyalty, and travel commerce. Filter by category, or browse everything below. Cards marked "Case study" open into a full write-up.</p>
+  </div>
+</header>
+
+<div class="filter-bar">
+  <div class="wrap">
+    <div class="pills" id="pills"></div>
+  </div>
+</div>
+
+<section class="wrap">
+  <div class="grid" id="grid"></div>
+</section>
+
+<footer>
+  <div class="wrap inner">
+    <div class="name">Layne Skullerud</div>
+    <div class="role mono">UX Design Leader</div>
+  </div>
+</footer>
+
+<script>
+const CATS = {
+  ai:      { label: "AI",              color: "#ff4b1f" },
+  fashion: { label: "Fashion",         color: "#B24EFF" },
+  loyalty: { label: "Loyalty",         color: "#34d399" },
+  travel:  { label: "Travel",          color: "#f472b6" },
+  exec:    { label: "Executive Review", color: "#94a3b8" },
+};
+
+const WORK = [
+  {
+    title: "SoleMate: AI Shoe Shopping",
+    eyebrow: "Zappos · Amazon Fashion",
+    desc: "Zero-to-one AI-powered footwear shopping app, designed in 21 days from a VP ask to working prototype. Earned VP greenlight, live in beta on the Zappos app. Patent submitted.",
+    cats: ["ai","fashion","exec"],
+    href: "solemate.html",
+    accent: "#ff4b1f",
+  },
+  {
+    title: "Generative AI Fashion Shopping",
+    eyebrow: "Amazon Fashion",
+    desc: "A generative AI fashion concept designed before the industry had a name for it, customers generate full outfits from imagination. Presented to senior director leadership.",
+    cats: ["ai","fashion"],
+    href: "gen-ai-fashion.html",
+    accent: "#B24EFF",
+  },
+  {
+    title: "Deals Page Vision",
+    eyebrow: "Amazon Promotions",
+    desc: "Owning the vision for how customers search for savings on Amazon, from everyday shopping to peak events like Prime Day and Black Friday Cyber Monday. MVP launching for the next major sale event in October.",
+    cats: ["ai"],
+    href: "deals-page.html",
+    accent: "#e3a939",
+  },
+  {
+    title: "High Velocity Events: Walk the Store",
+    eyebrow: "Amazon Promotions",
+    desc: "Led the Prime Day 2026 Walk the Store CX presentation to VP and SVP leadership, building the first interactive, coded prototype used in this review format, establishing a new mechanism for future reviews.",
+    cats: ["ai","exec"],
+    accent: "#94a3b8",
+  },
+  {
+    title: "Amazon Prime: Merchandising Agent",
+    eyebrow: "Amazon · Loyalty",
+    desc: "Design lead for Prime acquisition and retention CX across the entire store. An agent-powered benefit discovery experience, distinct from the Alexa conversational pattern, drove $1B+ in annualized customer sales, 600K+ signups, and 87K members retained.",
+    cats: ["ai","loyalty"],
+    accent: "#34d399",
+  },
+  {
+    title: "Prime for Young Adults",
+    eyebrow: "Amazon · Loyalty",
+    desc: "Reinvented a struggling loyalty program for Gen Z, reversing five years of membership decline by replacing free-shipping messaging with cash back. Drove +23.8% YoY membership growth, 17% above plan, plus +$161M/yr from post-launch redemption optimization.",
+    cats: ["loyalty"],
+    href: "pya.html",
+    accent: "#34d399",
+  },
+  {
+    title: "Gifting & Registries",
+    eyebrow: "Amazon",
+    desc: "Led the gifting and registry CX vision across three teams, covering the full gift journey and all three registry types. Earned SVP alignment on a +$20.6B annual revenue opportunity.",
+    cats: ["exec"],
+    accent: "#94a3b8",
+  },
+  {
+    title: "Confidential New Product Launch",
+    eyebrow: "Amazon",
+    desc: "Stepped into a program in crisis after three UX resources departed. Built a new design review format from scratch and prepared the SVP-level deck that earned the greenlight to launch.",
+    cats: ["exec"],
+    accent: "#94a3b8",
+  },
+  {
+    title: "Pre-Loved Fashion Feed",
+    eyebrow: "Amazon Fashion",
+    desc: "Reimagined a stalled resale fashion vision into a social shopping feed. Redesigned around existing feed technology to reduce build complexity and unlock VP approval.",
+    cats: ["fashion","exec"],
+    accent: "#B24EFF",
+  },
+  {
+    title: "Amazon Discover",
+    eyebrow: "Amazon Fashion · fka Style Feed",
+    desc: "Sole designer for Amazon's shoppable social content feed. Led the transformation from fashion-only to cross-category, driving +$176M annualized gross profit and reaching 78.8M unique customers.",
+    cats: ["fashion"],
+    accent: "#B24EFF",
+  },
+  {
+    title: "Shoppable Fashion Collages",
+    eyebrow: "Amazon Fashion",
+    desc: "Originated the shoppable collage concept, taken from prototype to scaled adoption across Creators and Search, driving +$58.5M in annualized revenue.",
+    cats: ["fashion","ai"],
+    accent: "#B24EFF",
+  },
+  {
+    title: "Amazon Fashion Detail Page",
+    eyebrow: "Amazon Fashion",
+    desc: "Single-threaded UX owner for the Amazon Fashion Detail Page. Developed the North Star vision that earned SVP escalation.",
+    cats: ["fashion"],
+    accent: "#B24EFF",
+  },
+  {
+    title: "Fashion Complementary Recommendations",
+    eyebrow: "Amazon Fashion",
+    desc: "Design lead for fashion complementary recommendations across Amazon. Scaled the Outfit Builder pattern to 5 surfaces and 10+ global markets, driving $69.6M in estimated annual revenue.",
+    cats: ["fashion"],
+    accent: "#B24EFF",
+  },
+  {
+    title: "Travelocity Premium",
+    eyebrow: "Travelocity · Loyalty",
+    desc: "Designed the first-of-its-kind paid travel loyalty subscription for Travelocity end to end, sign-up through member dashboard. Launched the pilot and brought it to launch-ready state.",
+    cats: ["loyalty","travel"],
+    accent: "#f472b6",
+  },
+  {
+    title: "Flights and Hotels Page Redesign",
+    eyebrow: "Travelocity",
+    desc: "Redesigned the flights and hotel landing pages through research sprints, resulting in +11% funnel progression, 17.6% bounce rate reduction, and +172% merch engagement.",
+    cats: ["travel"],
+    accent: "#f472b6",
+  },
+  {
+    title: "Orbitz LGBTQ+ Travel",
+    eyebrow: "Orbitz",
+    desc: "Designed a brand-differentiated LGBTQ+ travel experience for Orbitz that earned VP town hall recognition and influenced the launch of the Orbitz LGBTQ+ initiative.",
+    cats: ["travel"],
+    accent: "#f472b6",
+  },
+  {
+    title: "New to Amazon CX Vision",
+    eyebrow: "Amazon",
+    desc: "L10 leadership requested an improved CX to reverse a 5-quarter decline in New to Amazon customers, an ambiguous ask with no defined scope. Narrowed focus to Homepage across 6+ teams, cutting the traffic decline from -4.7% to -2.5% YoY.",
+    cats: ["exec"],
+    accent: "#94a3b8",
+  },
+  {
+    title: "Amazon Creator Storefront Vision",
+    eyebrow: "Amazon",
+    desc: "Details coming soon.",
+    cats: ["fashion"],
+    accent: "#B24EFF",
+  },
+];
+
+const pillsEl = document.getElementById('pills');
+const gridEl = document.getElementById('grid');
+let active = new Set();
+
+function counts() {
+  const c = {};
+  Object.keys(CATS).forEach(k => c[k] = 0);
+  WORK.forEach(w => w.cats.forEach(c2 => c[c2]++));
+  return c;
+}
+
+function renderPills() {
+  const c = counts();
+  pillsEl.innerHTML = '';
+  const allPill = document.createElement('button');
+  allPill.className = 'pill' + (active.size === 0 ? ' active' : '');
+  allPill.style.background = active.size === 0 ? '#f1eef7' : 'transparent';
+  allPill.innerHTML = `<span class="dot" style="background:currentColor"></span>All <span class="count">${WORK.length}</span>`;
+  allPill.onclick = () => { active.clear(); render(); };
+  pillsEl.appendChild(allPill);
+
+  Object.entries(CATS).forEach(([key, meta]) => {
+    const p = document.createElement('button');
+    const isActive = active.has(key);
+    p.className = 'pill' + (isActive ? ' active' : '');
+    p.style.background = isActive ? meta.color : 'transparent';
+    p.style.color = isActive ? '#0b0b0d' : 'var(--ink-dim)';
+    p.innerHTML = `<span class="dot" style="background:${isActive ? '#0b0b0d' : meta.color}"></span>${meta.label} <span class="count">${c[key]}</span>`;
+    p.onclick = () => {
+      if (active.has(key)) active.delete(key); else active.add(key);
+      render();
+    };
+    pillsEl.appendChild(p);
+  });
+}
+
+function renderGrid() {
+  gridEl.innerHTML = '';
+  WORK.forEach(w => {
+    const show = active.size === 0 || w.cats.some(c => active.has(c));
+    const tag = w.href ? 'a' : 'div';
+    const el = document.createElement(tag);
+    el.className = 'card' + (w.href ? '' : ' static') + (show ? '' : ' hidden');
+    if (w.href) el.href = w.href;
+    el.style.setProperty('--accent', w.accent);
+    el.innerHTML = `
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${w.accent}"></div>
+      ${w.href ? `<div class="go" style="--accent-dot:${w.accent}"><span class="dot"></span>Case study</div>` : ''}
+      <div class="card-eyebrow mono">${w.eyebrow}</div>
+      <h3>${w.title}</h3>
+      <p>${w.desc}</p>
+      <div class="cat-row">
+        ${w.cats.map(c => `<div class="cat">${CATS[c].label}</div>`).join('')}
+      </div>
+    `;
+    gridEl.appendChild(el);
+  });
+}
+
+function render() {
+  renderPills();
+  renderGrid();
+}
+
+render();
+</script>
+
+</body>
+</html>

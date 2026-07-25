@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layne Skullerud · Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0b0b0d;
+    --ink:#f1eef7;
+    --ink-dim:#8f8b9c;
+    --line: rgba(240,238,246,0.09);
+    --card:#111116;
+    --signal:#e3a939;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--void); color:var(--ink); font-family:'Inter',sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif; font-weight:700; margin:0; letter-spacing:-0.01em;}
+  .mono{font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:0.08em;}
+  .wrap{max-width:840px; margin:0 auto; padding:0 32px;}
+
+  header{padding:88px 0 56px; border-bottom:1px solid var(--line);}
+  header .eyebrow{font-size:12px; color:var(--ink-dim); margin-bottom:18px;}
+  h1{font-size:clamp(32px,5vw,46px); line-height:1.1;}
+  .role{font-size:16px; color:var(--signal); margin-top:8px; font-weight:600;}
+  .contact{margin-top:16px; font-size:13.5px; color:var(--ink-dim);}
+  .contact a{color:var(--ink-dim); text-decoration:none; border-bottom:1px solid var(--line);}
+  .contact a:hover{color:var(--ink); border-color:var(--ink-dim);}
+  .summary{margin-top:26px; font-size:16px; color:var(--ink-dim); max-width:64ch;}
+
+  section{padding:52px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .section-title{font-size:13px; color:var(--signal); margin-bottom:32px;}
+
+  .entry{margin-bottom:30px;}
+  .entry:last-child{margin-bottom:0;}
+  .entry-head{display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:6px;}
+  .entry-title{font-size:17px; font-weight:600; color:var(--ink);}
+  .entry-dates{font-size:12px; color:var(--ink-dim); font-family:'IBM Plex Mono',monospace; white-space:nowrap;}
+  .entry p{font-size:14.5px; color:var(--ink-dim); margin:0 0 6px; max-width:66ch;}
+
+  .company{margin-bottom:44px;}
+  .company:last-child{margin-bottom:0;}
+  .company-head{display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:22px;}
+  .company-name{font-size:19px; font-weight:700; font-family:'Space Grotesk',sans-serif;}
+  .company-role{font-size:13.5px; color:var(--ink-dim); margin-top:3px;}
+  .company-dates{font-size:12px; color:var(--ink-dim); font-family:'IBM Plex Mono',monospace; white-space:nowrap;}
+
+  .bullet{margin-bottom:20px; padding-left:20px; border-left:2px solid var(--line);}
+  .bullet:last-child{margin-bottom:0;}
+  .bullet-title{font-size:14.5px; font-weight:600; color:var(--ink); margin-bottom:5px;}
+  .bullet p{font-size:13.5px; color:var(--ink-dim); margin:0; max-width:66ch;}
+
+  .skills-grid{display:grid; grid-template-columns:1fr; gap:26px;}
+  .skill-group h3{font-size:12.5px; color:var(--signal); margin-bottom:10px; text-transform:uppercase; letter-spacing:0.06em; font-family:'IBM Plex Mono',monospace; font-weight:600;}
+  .skill-group p{font-size:14px; color:var(--ink-dim); margin:0; max-width:70ch;}
+
+  .edu-item{margin-bottom:18px;}
+  .edu-item:last-child{margin-bottom:0;}
+  .edu-degree{font-size:14.5px; font-weight:600; color:var(--ink);}
+  .edu-school{font-size:13px; color:var(--ink-dim); margin-top:2px;}
+
+  .award-item{margin-bottom:14px; font-size:13.5px; color:var(--ink-dim);}
+  .award-item:last-child{margin-bottom:0;}
+  .award-item b{color:var(--ink); font-weight:600;}
+
+  .print-note{font-size:11.5px; color:var(--ink-dim); text-align:center; padding:40px 0 80px;}
+  .print-note a{color:var(--ink-dim);}
+
+  @media print{
+    body{background:#fff; color:#111;}
+    .print-note{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow mono">Resume</div>
+    <h1>Layne Skullerud</h1>
+    <div class="role">UX Design Leader</div>
+    <div class="contact">
+      <a href="mailto:layne.skullerud@gmail.com">layne.skullerud@gmail.com</a> · 206.817.2136
+    </div>
+    <p class="summary">UX design leader with 15+ years of experience in e-commerce, social shopping, and travel loyalty design, now focused on AI-driven customer experiences. Known as the designer leadership calls when a program is stalled or the stakes are too high to get wrong. At Amazon, repeatedly trusted with the most complex, high-visibility situations that require SVP-level alignment. Thrives at the intersection of AI and design craft, turning emerging AI capabilities into tools and frameworks that make the whole design org faster, sharper, and more data-driven. Backed by $1B+ in customer sales impact, two patents, and a consistent track record of stepping into hard situations and shipping work leadership is proud of.</p>
+  </div>
+</header>
+
+
+<section>
+  <div class="wrap">
+    <div class="section-title mono">Experience</div>
+
+    <div class="company">
+      <div class="company-head">
+        <div>
+          <div class="company-name">Amazon</div>
+          <div class="company-role">Senior UX Designer</div>
+        </div>
+        <div class="company-dates">Aug 2020 – Present</div>
+      </div>
+
+      <div class="bullet">
+        <div class="bullet-title">Savings &amp; Promotions</div>
+        <p>Leading the end-to-end vision, strategy, and UX design execution for how Amazon shows deals and promotions across the entire store, using AI coding and prototyping for quick idea generation and validation, evaluating ideas with users and stakeholders to inform strategic decisions for a business driving $244B per year in customer sales.</p>
+      </div>
+
+      <div class="bullet">
+        <div class="bullet-title">High Velocity Events</div>
+        <p>Led the Prime Day 2026 Walk the Store CX presentation to VP and SVP leadership, designing a comprehensive deck and building the first-ever interactive, coded prototype used in this review format, establishing a new mechanism for future leadership reviews.</p>
+      </div>
+
+      <div class="bullet">
+        <div class="bullet-title">SoleMate</div>
+        <p>Led a zero-to-one incubation initiative, designing an AI-powered footwear shopping app from zero in 21 days, co-leading scope and driving daily design reviews while engineering built in parallel. Earned VP greenlight for launch in the Zappos app. Patent submitted for contextual auto quick-fill interaction.</p>
+      </div>
+
+      <div class="bullet">
+        <div class="bullet-title">Amazon Prime</div>
+        <p>Design lead for Prime acquisition and retention CX across entire store. Leveraged a Prime Merchandising Agent to design an agent-powered experience that doesn't duplicate the Alexa conversational AI pattern to surface personalized benefit discovery to customers within their existing shopping journeys. Personalized homepage placement drove +$816M cumulative annualized customer sales across three audience segments. Combined with the profile tab value widget (+$244M customer sales, 144K+ member impact) and Join Prime upsells (+525K signups), the work totals $1B+ in annualized customer sales, 600K+ signups, and 87K members retained.</p>
+      </div>
+
+      <div class="bullet">
+        <div class="bullet-title">Prime for Young Adults</div>
+        <p>Launched Prime for Young Adults, a program targeting 24.5M eligible Gen Z customers, which included acquisition flows, a member benefits hub, and a new CX for cash back across search, detail page, cart and checkout. Drove +$175M annualized customer sales, lifted acquisition rate from 14.5% to 16.8%, and improved cash back redemption from 46% to 91%, adding 102K+ annualized members and +$27.7M in gross profit.</p>
+      </div>
+
+      <div class="bullet">
+        <div class="bullet-title">Gifting &amp; Registries</div>
+        <p>Led the gifting and registry CX vision across three teams, creating a design companion covering the full gift journey and all three registry types (Baby, Wedding, Gift). Earned SVP alignment on a +$20.6B annual revenue opportunity. The presentation format was adopted org-wide.</p>
+      </div>
+
+      <div class="bullet">
+        <div class="bullet-title">Confidential New Product Launch</div>
+        <p>Stepped into a program in crisis after three UX resources departed. Created a new design review format from scratch, conducted VP-level walkthroughs, and prepared the SVP-level deck that earned the greenlight to launch. Coordinated CX with high-profile external brand partners.</p>
+      </div>
+
+      <div class="bullet">
+        <div class="bullet-title">Pre-Loved Fashion Feed</div>
+        <p>Reimagined a stalled resale fashion vision into a social shopping feed experience. The original proposal failed due to prohibitive dev cost, so partnered with product to redesign around existing feed technology, reducing build complexity and unlocking VP approval. Launch was paused due to resourcing.</p>
+      </div>
+
+      <div class="bullet">
+        <div class="bullet-title">Amazon Discover (fka Style Feed)</div>
+        <p>Sole designer for Amazon's shoppable social content feed, an Instagram-style experience for shopping influencer content. Led the transformation from fashion-only to cross-category, designed the syndication widget system (Homepage, Search, Detail Page, Echo Show), and drove +$176M annualized gross profit and +$168M in customer sales, reaching 78.8M unique customers.</p>
+      </div>
+
+      <div class="bullet">
+        <div class="bullet-title">Shoppable Fashion Collages</div>
+        <p>Took an AI-informed concept from prototype to scaled adoption, originating the shoppable collage concept that let customers build product collages with stickers and text then share them with friends. After Discover's deprecation, Creators launched it (Sep 2024, 3,700+ collages) and Search adopted it as Shoppable Image Collage Boutiques (2025), driving +$58.5M in annualized revenue and +$8.5M in gross profit.</p>
+      </div>
+
+      <div class="bullet">
+        <div class="bullet-title">Generative AI Fashion Shopping</div>
+        <p>Designed a generative AI fashion shopping experience before the industry had a name for it. Customers could generate full outfits from imagination, mix product attributes, and surface visually similar items. Presented to senior director leadership, predating industry trends.</p>
+      </div>
+
+      <div class="bullet">
+        <div class="bullet-title">Amazon Fashion Detail Page</div>
+        <p>Single-threaded UX owner. Partnered with product to define tenets and roadmap, driving CX improvements yielding +$7.4M in annualized revenue and +$13M in gross profit. Developed the North Star vision that earned SVP escalation.</p>
+      </div>
+
+      <div class="bullet">
+        <div class="bullet-title">Fashion Complementary Recommendations</div>
+        <p>Design lead for fashion complementary recommendations across Amazon. Scaled the Outfit Builder pattern from a single placement to 5 surfaces and 10+ global markets, redesigned the feedback mechanism to generate 1.9M responses per month versus 47K in 2020, and drove $69.6M in estimated annual revenue. Developed a 3-year vision incorporating virtual try-on and cross-category expansion.</p>
+      </div>
+    </div>
+
+    <div class="company">
+      <div class="company-head">
+        <div>
+          <div class="company-name">Expedia Group</div>
+          <div class="company-role">UX Designer</div>
+        </div>
+        <div class="company-dates">Jul 2019 – Aug 2020</div>
+      </div>
+
+      <div class="bullet">
+        <div class="bullet-title">Travelocity Premium</div>
+        <p>Designed the first-of-its-kind paid travel loyalty subscription for Travelocity end-to-end, including the overview page, sign-up, member dashboard, transactional emails, and virtual agent self-service. Launched the pilot, iterated with research, and brought the experience to launch-ready state.</p>
+      </div>
+
+      <div class="bullet">
+        <div class="bullet-title">Flights and Hotels Page Redesign</div>
+        <p>Redesigned the flights and hotel landing pages through research sprints, delivering a curated discovery experience that resulted in +11% funnel progression, 17.6% bounce rate reduction, and +172% merch engagement.</p>
+      </div>
+
+      <div class="bullet">
+        <div class="bullet-title">Orbitz LGBTQ+ Travel</div>
+        <p>Designed a brand-differentiated LGBTQ+ travel experience that earned VP town hall recognition and influenced the launch of the Orbitz LGBTQ+ initiative.</p>
+      </div>
+    </div>
+
+    <div class="company">
+      <div class="company-head">
+        <div>
+          <div class="company-name">Blulink</div>
+          <div class="company-role">UX Designer</div>
+        </div>
+        <div class="company-dates">Aug 2017 – Jul 2019</div>
+      </div>
+
+      <div class="bullet">
+        <div class="bullet-title">Microsoft Consulting</div>
+        <p>UX design lead on consulting projects for Microsoft, streamlining manual B2B marketing processes into an online tool, designing internal data dashboards for business productivity, and facilitating UX workshops on human-centered design for non-design audiences.</p>
+      </div>
+    </div>
+
+    <div class="company">
+      <div class="company-head">
+        <div>
+          <div class="company-name">The Boeing Company</div>
+          <div class="company-role">Lead Graphic Designer</div>
+        </div>
+        <div class="company-dates">Aug 2010 – Aug 2017</div>
+      </div>
+
+      <div class="bullet">
+        <div class="bullet-title">Global Brand Marketing</div>
+        <p>Shaped brand identity and visual storytelling for one of the world's largest aerospace companies, designing for large-scale events including aircraft delivery ceremonies, international air show exhibits, and Boeing's Centennial year celebrations, earning back-to-back company-wide recognition for design excellence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-title mono">Skills &amp; Capabilities</div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h3>Leadership</h3>
+        <p>Pod and team leadership, design critique and feedback, roadmap prioritization, resourcing, cross-org stakeholder alignment, VP/SVP executive presentation, hiring and talent calibration, mentorship, design thinking facilitation.</p>
+      </div>
+      <div class="skill-group">
+        <h3>UX Design</h3>
+        <p>Design thinking, interaction design, loyalty and retention CX, conversational AI UX, user research and synthesis, usability testing, wireframing, prototyping, coded demos, journey mapping, information architecture, design systems, content strategy, WCAG accessibility.</p>
+      </div>
+      <div class="skill-group">
+        <h3>Visual Design</h3>
+        <p>Branding, visual identity, illustration, typography, color theory, style guide development.</p>
+      </div>
+      <div class="skill-group">
+        <h3>Tools</h3>
+        <p>Figma (incl. AI features), Stores Designer (Amazon AI design and prototyping tool), Kiro (Amazon agentic IDE), Claude Code in VS Code, Principle, Adobe Suite, UserTesting.com, ChatGPT, Midjourney.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-title mono">Education</div>
+    <div class="edu-item">
+      <div class="edu-degree">Master of Science, Human Centered Design &amp; Engineering</div>
+      <div class="edu-school">University of Washington</div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-degree">Bachelor of Fine Arts, Visual Communication &amp; Digital Design</div>
+      <div class="edu-school">American Intercontinental University</div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-degree">Bachelor of Arts, Sociology</div>
+      <div class="edu-school">University of Washington</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-title mono">Certifications &amp; Awards</div>
+    <div class="award-item"><b>US Patent No. 12169859</b> — Named Inventor, Real-Time Interactive Outfit Recommendation (Amazon, Dec 2024)</div>
+    <div class="award-item"><b>Patent submitted</b> — Contextual Auto Quick-Fill Interaction (SoleMate, Amazon)</div>
+    <div class="award-item"><b>University of Washington</b> — User-Centered Design Certification Program</div>
+    <div class="award-item"><b>Boeing Communications Award for Functional Excellence</b> (2013, 2014)</div>
+  </div>
+</section>
+
+<div class="print-note">Layne Skullerud · <a href="mailto:layne.skullerud@gmail.com">layne.skullerud@gmail.com</a></div>
+
+</body>
+</html>

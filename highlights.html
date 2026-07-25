@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layne Skullerud · Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0b0b0d;
+    --ink:#f1eef7;
+    --ink-dim:#8f8b9c;
+    --line: rgba(240,238,246,0.09);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--void); color:var(--ink); font-family:'Inter',sans-serif; line-height:1.55; -webkit-font-smoothing:antialiased;}
+  h1,h2{font-family:'Space Grotesk',sans-serif; font-weight:700; margin:0; letter-spacing:-0.01em;}
+  .mono{font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:0.08em;}
+  .wrap{max-width:1040px; margin:0 auto; padding:0 32px;}
+
+  header{padding:110px 0 72px;}
+  .eyebrow{font-size:12px; color:var(--ink-dim); margin-bottom:20px;}
+  h1{font-size:clamp(34px,5.5vw,58px); line-height:1.08; max-width:16ch;}
+  .hero-sub{margin-top:24px; font-size:18px; color:var(--ink-dim); max-width:56ch;}
+
+  .cards{display:grid; grid-template-columns:1fr; gap:20px; padding-bottom:100px;}
+  .card{
+    display:block; text-decoration:none; color:inherit;
+    position:relative; overflow:hidden;
+    border:1px solid var(--line); border-radius:16px;
+    padding:36px 40px;
+    background:#111116;
+    transition:transform 0.15s ease, border-color 0.15s ease;
+  }
+  .card:hover{transform:translateY(-2px);}
+  .card::before{
+    content:""; position:absolute; top:0; left:0; right:0; height:3px;
+  }
+  .card-eyebrow{font-size:11px; margin-bottom:14px;}
+  .card h2{font-size:26px; margin-bottom:10px; max-width:26ch;}
+  .card p{font-size:14.5px; color:var(--ink-dim); max-width:64ch; margin:0 0 18px;}
+  .card .tag-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .card .tag{font-size:10.5px; padding:5px 10px; border:1px solid var(--line); border-radius:5px; color:var(--ink-dim);}
+  .card .go{position:absolute; top:36px; right:40px; font-size:12px; font-family:'IBM Plex Mono',monospace; color:var(--ink-dim); opacity:0; transition:opacity 0.15s ease;}
+  .card:hover .go{opacity:1;}
+
+  .card-solemate::before{background:#ff4b1f;}
+  .card-solemate:hover{border-color:rgba(255,75,31,0.4);}
+  .card-solemate .card-eyebrow{color:#ff4b1f;}
+
+  .card-lucid::before{background:#B24EFF;}
+  .card-lucid:hover{border-color:rgba(178,78,255,0.4);}
+  .card-lucid .card-eyebrow{color:#B24EFF;}
+
+  .card-deals::before{background:#e3a939;}
+  .card-deals:hover{border-color:rgba(227,169,57,0.4);}
+  .card-deals .card-eyebrow{color:#e3a939;}
+
+  footer{padding:0 0 80px; text-align:center; border-top:1px solid var(--line); margin-top:0;}
+  footer .inner{padding-top:40px;}
+  footer .name{font-size:15px; font-weight:600;}
+  footer .role{font-size:13px; color:var(--ink-dim); margin-top:6px;}
+
+  @media(min-width:760px){
+    .cards{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow mono">Portfolio · Layne Skullerud</div>
+    <h1>Three ways of designing for AI shopping.</h1>
+    <p class="hero-sub">A shipped product, an early concept, and a system in progress, each one built on what the last one&nbsp;proved.</p>
+  </div>
+</header>
+
+<section class="wrap">
+  <div class="cards">
+
+    <a class="card card-solemate" href="solemate.html">
+      <div class="go">Open →</div>
+      <div class="card-eyebrow mono">Zappos · Amazon Fashion</div>
+      <h2>SoleMate: AI Shoe Shopping</h2>
+      <p>Designed an AI-powered footwear shopping app in three weeks, combining chat-based recommendations with visual discovery, working in parallel with engineering building the prototype. Greenlit by VP leadership and live in beta on the Zappos app today.</p>
+      <div class="tag-row">
+        <div class="tag">21-day sprint</div>
+        <div class="tag">Shipped to beta</div>
+        <div class="tag">Patent submitted</div>
+      </div>
+    </a>
+
+    <a class="card card-lucid" href="gen-ai-fashion.html">
+      <div class="go">Open →</div>
+      <div class="card-eyebrow mono">Amazon Fashion</div>
+      <h2>Generative AI Fashion Shopping</h2>
+      <p>A "design to discover" concept where customers create what they can't find the words for, and shopping happens as a byproduct of creating. Predated Google, Pinterest, and the 2024 generative AI retail wave. The design principles it established became Solemate's foundation 18 months later.</p>
+      <div class="tag-row">
+        <div class="tag">PRFAQ vision</div>
+        <div class="tag">Presented to L8</div>
+        <div class="tag">Concept stage</div>
+      </div>
+    </a>
+
+    <a class="card card-deals" href="deals-page.html">
+      <div class="go">Open →</div>
+      <div class="card-eyebrow mono">Amazon Promotions</div>
+      <h2>Deals Page Vision</h2>
+      <p>Owning the vision for how customers search for savings on Amazon, from everyday shopping to peak events like Prime Day and Black Friday Cyber Monday. MVP launching for the next major sale event in October.</p>
+      <div class="tag-row">
+        <div class="tag">In SVP review</div>
+        <div class="tag">MVP launching Oct</div>
+        <div class="tag">System-level</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap inner">
+    <div class="name">Layne Skullerud</div>
+    <div class="role mono">UX Design Leader</div>
+  </div>
+</footer>
+
+</body>
+</html>

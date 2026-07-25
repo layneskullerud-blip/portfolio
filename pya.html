@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prime for Young Adults, Layne Skullerud</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0d1512;
+    --panel:#141e19;
+    --panel-2:#182620;
+    --line: rgba(230,240,236,0.09);
+    --ink:#eef4f1;
+    --ink-dim:#8ba39a;
+    --gold:#34d399;
+    --gold-soft: rgba(52,211,153,0.14);
+    --down:#e0665f;
+    --up:#6fbf8c;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--void); color:var(--ink); font-family:'Inter',sans-serif; line-height:1.55; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif; font-weight:700; margin:0; letter-spacing:-0.01em;}
+  .mono{font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:0.08em;}
+  .wrap{max-width:940px; margin:0 auto; padding:0 32px;}
+
+  header{padding:96px 0 72px; border-bottom:1px solid var(--line); position:relative; overflow:hidden;}
+  header::before{content:""; position:absolute; top:-40%; right:-10%; width:560px; height:560px; background:radial-gradient(circle, var(--gold-soft), transparent 70%); pointer-events:none;}
+  .eyebrow{font-size:12px; color:var(--gold); margin-bottom:20px;}
+  h1.hero-title{font-size:clamp(36px, 5.6vw, 60px); line-height:1.06; max-width:19ch;}
+  .hero-sub{margin-top:22px; font-size:19px; color:var(--ink-dim); max-width:58ch;}
+  .tag-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:36px;}
+  .tag{font-size:11px; padding:7px 12px; border:1px solid var(--line); border-radius:6px; color:var(--ink-dim);}
+  .tag b{color:var(--ink); font-weight:600;}
+
+  section{padding:72px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .section-title{font-size:29px; margin-bottom:28px; max-width:24ch;}
+  .lede{font-size:17px; color:var(--ink-dim); max-width:68ch; margin-bottom:8px;}
+
+  /* Big stat row */
+  .stat-row{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-top:36px;}
+  .stat{background:var(--panel); padding:22px 20px;}
+  .stat .n{font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:700; color:var(--gold);}
+  .stat .l{font-size:11.5px; color:var(--ink-dim); margin-top:6px; line-height:1.4;}
+  @media(max-width:700px){.stat-row{grid-template-columns:1fr 1fr;}}
+
+  .spec-grid{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-top:32px;}
+  .spec{background:var(--panel); padding:22px 24px;}
+  .spec .k{font-size:10px;color:var(--gold);margin-bottom:8px;}
+  .spec .v{font-size:14.5px;color:var(--ink); line-height:1.5;}
+  @media(max-width:640px){.spec-grid{grid-template-columns:1fr;}}
+
+  /* Tenets / theme grid */
+  .theme-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:32px;}
+  .theme{padding:24px; background:linear-gradient(160deg, var(--panel-2), var(--panel)); border:1px solid var(--gold); border-radius:12px;}
+  .theme .p0{display:inline-block; font-size:10px; color:var(--gold); border:1px solid var(--gold); padding:2px 8px; border-radius:999px; margin-bottom:12px;}
+  .theme h3{font-size:16.5px; margin-bottom:8px;}
+  .theme p{font-size:13.5px; color:var(--ink-dim); margin:0;}
+  @media(max-width:700px){.theme-grid{grid-template-columns:1fr;}}
+
+  /* Decisions / principles */
+  .principles{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:32px;}
+  .principle{padding:24px; background:var(--panel); border-radius:12px; border:1px solid var(--line);}
+  .principle .num{font-size:11px; color:var(--gold); margin-bottom:12px;}
+  .principle h3{font-size:16px; margin-bottom:8px;}
+  .principle p{font-size:13.5px; color:var(--ink-dim); margin:0;}
+  @media(max-width:700px){.principles{grid-template-columns:1fr;}}
+
+  .pull{margin:40px 0 0; padding:32px 36px; background:var(--panel); border-left:3px solid var(--gold); border-radius:0 12px 12px 0; font-family:'Space Grotesk',sans-serif; font-size:21px; line-height:1.4;}
+  .pull span{color:var(--ink-dim); font-family:'Inter',sans-serif; font-size:13px; display:block; margin-top:14px;}
+
+  /* Results bar comparisons */
+  .learning{padding:26px 0; border-top:1px solid var(--line);}
+  .learning:first-of-type{border-top:none;}
+  .learning h3{font-size:16px; margin-bottom:8px;}
+  .learning p{font-size:14px; color:var(--ink-dim); margin:0 0 16px; max-width:68ch;}
+  .bar-comp{display:flex; flex-direction:column; gap:8px; max-width:520px;}
+  .bar-row{display:grid; grid-template-columns:130px 1fr 100px; gap:12px; align-items:center;}
+  .bar-row .label{font-size:11.5px; color:var(--ink-dim);}
+  .bar-track{height:8px; background:var(--panel-2); border-radius:4px; overflow:hidden;}
+  .bar-fill{height:100%; border-radius:4px;}
+  .bar-fill.up{background:var(--up);}
+  .bar-row .val{font-family:'IBM Plex Mono',monospace; font-size:12px; text-align:right;}
+  .val.up{color:var(--up);}
+
+  /* Next-steps cards */
+  .next-card{padding:28px 0; border-top:1px solid var(--line);}
+  .next-card:first-of-type{border-top:none;}
+  .next-card h3{font-size:18px; margin-bottom:10px;}
+  .next-card p{font-size:14.5px; color:var(--ink-dim); margin:0 0 14px; max-width:70ch;}
+  .next-card .stat-pill{display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:11px; padding:4px 9px; border:1px solid var(--line); border-radius:999px; color:var(--ink); margin-right:8px; margin-top:4px;}
+
+  .ai-note{margin-top:36px; padding:24px 26px; background:var(--panel); border:1px solid var(--line); border-radius:12px;}
+  .ai-note .k{font-size:10.5px; color:var(--gold); margin-bottom:10px;}
+  .ai-note p{font-size:13.5px; color:var(--ink-dim); margin:0; max-width:70ch;}
+
+  .closing{font-size:20px; font-family:'Space Grotesk',sans-serif; line-height:1.5; max-width:64ch;}
+  .closing b{color:var(--gold);}
+
+  footer{padding:64px 0 80px; text-align:center;}
+  footer .name{font-size:15px; font-weight:600;}
+  footer .role{font-size:13px; color:var(--ink-dim); margin-top:6px;}
+
+  .back-nav{position:sticky; top:0; z-index:50; padding:14px 32px; font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; backdrop-filter:blur(6px);}
+  .back-nav a{color:inherit; text-decoration:none; opacity:0.7;}
+  .back-nav a:hover{opacity:1;}
+</style>
+</head>
+<body>
+<div class="back-nav" style="background:rgba(13,21,18,0.85); color:#34d399; border-bottom:1px solid rgba(255,255,255,0.08);"><a href="work.html">&larr; Portfolio</a></div>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow mono">Amazon · Loyalty</div>
+    <h1 class="hero-title">Prime for Young Adults</h1>
+    <p class="hero-sub">Reinventing a struggling loyalty program for Gen Z, reversing five years of membership decline by replacing free shipping messaging with cash back, built around joy, social currency, and winning.</p>
+    <div class="tag-row">
+      <div class="tag"><b>Role</b> · Sole Designer, US Prime CX</div>
+      <div class="tag"><b>Scope</b> · 8+ surfaces, sign-up through redemption</div>
+      <div class="tag"><b>Status</b> · Launched, driving post-launch optimization</div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">The situation</h2>
+    <p class="lede">Prime Student had shrunk from 4.6MM members in 2020 to 3.4MM by December 2024, churning faster than Amazon could acquire new members, despite adding 3.9MM signups a year.</p>
+    <div class="stat-row">
+      <div class="stat"><div class="n">75%</div><div class="l">of eligible 18–24 year olds already had Prime through a parent or friend's account</div></div>
+      <div class="stat"><div class="n">22%</div><div class="l">had an individual membership, 21 points lower than older demographics</div></div>
+      <div class="stat"><div class="n">70%</div><div class="l">of Temu's shoppers were Gen Z, vs. 15% for Amazon</div></div>
+      <div class="stat"><div class="n">6.1%</div><div class="l">of this cohort's retail spend Amazon captured, vs. 22% for shoppers over 28</div></div>
+    </div>
+    <p class="lede" style="margin-top:28px;">Nearly half of Gen Z was actively trying to shop less on Amazon, and their discretionary income had declined 22% year-over-year. A discounted price of $7.49/month wasn't enough to convince them to pay for their own membership. The program didn't need a refresh. It needed a reinvention.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">The case for reinvention</h2>
+    <p class="lede">Before any design work began, the case had to be built. A PR/FAQ grounded in quantitative research and competitive analysis found that 35% of young adults cited cash back and discounts as their top priority, nearly twice the next category. Free shipping, Prime's traditional core value prop, was mentioned by only 15%: for this generation, shipping is table stakes, not a differentiator.</p>
+    <p class="lede" style="margin-top:16px;">Cash back was chosen because it can't be replicated by sharing a parent's account, it creates a personal accumulation loop that motivates return visits, and it directly counters the price-driven appeal of Temu and SHEIN. The PR/FAQ was reviewed at CEO-level and the reinvention was greenlit, establishing three design tenets as the north star for the work.</p>
+    <div class="theme-grid">
+      <div class="theme">
+        <div class="p0 mono">Tenet</div>
+        <h3>Joy</h3>
+        <p>Surprise drops and gamification, moments that feel delightful rather than transactional.</p>
+      </div>
+      <div class="theme">
+        <div class="p0 mono">Tenet</div>
+        <h3>Social currency</h3>
+        <p>Sharable, exclusive, something worth telling friends about.</p>
+      </div>
+      <div class="theme">
+        <div class="p0 mono">Tenet</div>
+        <h3>Winning</h3>
+        <p>Hustling the system, getting a deal, a feeling of coming out ahead.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">Scope of ownership</h2>
+    <p class="lede">As the sole designer on US Prime CX, Layne owned the complete customer experience across 8+ surfaces and multiple ingress paths, aligning 15+ partner teams and 90+ contributors against a timeline risk as late as December 2024.</p>
+    <div class="spec-grid">
+      <div class="spec"><div class="k mono">Surfaces</div><div class="v">Sign-up, landing page, cash back dashboard, browse node, Search and Detail Page badges, Cart, Checkout, mobile and desktop</div></div>
+      <div class="spec"><div class="k mono">Partners</div><div class="v">Product, plus NAS Marketing for outbound strategy (email, social) and NAS Creative for on-site and off-site marketing assets</div></div>
+      <div class="spec"><div class="k mono">Open questions</div><div class="v">Benefit differentiators, program naming and branding, and category eligibility, all navigated alongside the design work</div></div>
+      <div class="spec"><div class="k mono">Timeline</div><div class="v">Prioritized to an MVP that could launch in time for Prime Day, despite risk as late as December 2024</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">Key design decisions</h2>
+    <p class="lede">Vision concepts that leaned hardest into joy and social currency, a gifting flow, a countdown for upcoming drops, a sharable cash back moment, were pushed to post-launch: deprioritized for tech constraints and timeline, not for lacking merit.</p>
+    <div class="principles">
+      <div class="principle">
+        <div class="num mono">Discovery</div>
+        <h3>In-context over a dedicated destination</h3>
+        <p>Research showed Gen Z has less than 8 seconds of active attention, so cash back awareness was distributed across the existing shopping journey rather than a hub they'd never visit. A Prime-branded badge system was envisioned but shipped as generic savings messaging due to tech constraints, a gap Layne hypothesizes is driving the redemption shortfall.</p>
+      </div>
+      <div class="principle">
+        <div class="num mono">Scalability</div>
+        <h3>A hub built to configure, not rebuild</h3>
+        <p>Built scalable components that could be configured on the page, cutting marketing lead time from 4 weeks to 2 and engineering workload from 5 days to 1, absorbing requirements from Legal, Finance, Marketing, and Prime leadership without letting scope expand.</p>
+      </div>
+      <div class="principle">
+        <div class="num mono">Workaround</div>
+        <h3>A shoppable hub in place of a static sign-up page</h3>
+        <p>The existing sign-up page had tech limits and no in-app path due to Apple App Store restrictions. Routing non-Prime members to the configurable, shoppable hub let them see the cash back value in action instead of just reading about it.</p>
+      </div>
+      <div class="principle">
+        <div class="num mono">Continuity</div>
+        <h3>No dead ends</h3>
+        <p>Every point where a customer diverged from the acquisition flow, detail page, cart, checkout, always carried a join-Prime opportunity with the 5% cash back message present. Every path back to shopping still had a path into membership.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">Results</h2>
+    <p class="lede">At launch, the program reversed a 5-year membership decline, the first sustained growth since 2020.</p>
+    <div class="stat-row">
+      <div class="stat"><div class="n">+23.8%</div><div class="l">YoY paid membership growth, 3.4MM → 4.2MM, 17% above operating plan</div></div>
+      <div class="stat"><div class="n">$1,868</div><div class="l">first-year spend for new paid members, vs. $751 when sharing credentials</div></div>
+      <div class="stat"><div class="n">56.4%</div><div class="l">60-day retention, up 3 points, ≈126K more members retained annually</div></div>
+      <div class="stat"><div class="n">56 vs 48</div><div class="l">NPS for PYA members vs. Core Prime, among 18–24 year olds</div></div>
+    </div>
+
+    <div class="learning">
+      <h3>Cash back grew spend, it didn't just shift it</h3>
+      <div class="bar-comp">
+        <div class="bar-row"><span class="label">Cash back categories</span><div class="bar-track"><div class="bar-fill up" style="width:85%"></div></div><span class="val up">+25.9% YoY</span></div>
+        <div class="bar-row"><span class="label">Non-cash-back categories</span><div class="bar-track"><div class="bar-fill up" style="width:60%"></div></div><span class="val up">+18.8% YoY</span></div>
+      </div>
+      <p style="margin-top:14px;">Both accelerated well past pre-launch rates of +6.1% and +3.9% respectively. The cash back system reached near-universal adoption: 5MM members earning, 99% of the member balance, $117MM earned, $43MM redeemed.</p>
+    </div>
+
+    <div class="learning">
+      <h3>Post-launch experiments compounded the gains</h3>
+      <p>5 of 8 post-launch experiments won, adding +8.7K annualized paid members on top of the larger surface wins. The checkout redemption improvement alone drove +$161M/yr in incremental customer sales, +102K annualized Prime members, and saved 56K members from churn annually. A more prominent Search badge added +$9M/yr, the profile tab upsell added +21K signups, and the Membership Central cash back value prop added +12K annualized paid members, outperforming Same-Day delivery as a value message.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">What's next</h2>
+    <p class="lede">The MVP optimized for the earning side of cash back. The spending side, redemption visibility, balance awareness, value celebration, is where the largest gaps remain.</p>
+
+    <div class="next-card">
+      <h3>Fix redemption visibility</h3>
+      <p>99% of members earn cash back, but only 46.4% have redeemed. Until recently, the only redemption surface was the Payment Selection Page, a screen most shoppers click through on autopilot. The checkout experiment proved visibility drives behavior, and a personalized balance card on the homepage Prime benefits widget added +$4M/yr on its own. The next step is making the balance a persistent element across the hub, homepage, profile tab, checkout, and potentially Search, plus a "use your cash back" nudge at the moment of highest intent and a celebratory SMS moment the first time a member crosses the $5 redemption threshold.</p>
+      <div class="stat-pill">+$161M/yr from checkout visibility</div>
+      <div class="stat-pill">+56K members saved from churn</div>
+      <div class="stat-pill">+$4M/yr from homepage balance card</div>
+    </div>
+
+    <div class="next-card">
+      <h3>Enhance acquisition messaging</h3>
+      <p>The free-trial message ("$0 for 6 months") beat 5% cash back messaging by 30.8K annualized signups on the homepage, and a "Cash Back" nav pill actually hurt signups. Members describe cash back as the reason they stay, not the reason they signed up. The opportunity is to lead acquisition with the free trial as the low-risk entry point, reserve cash back messaging for post-signup engagement, and reframe the sign-up page around identity, "what kind of person is this for", rather than the percentages and terms it leads with today.</p>
+      <div class="stat-pill">+30.8K signups, free trial vs. cash back messaging</div>
+      <div class="stat-pill">−38K/yr, Cash Back nav pill</div>
+    </div>
+
+    <div class="ai-note">
+      <div class="k mono">AI-assisted ideation</div>
+      <p>Layne also used AI tools to help generate and pressure-test additional growth directions against the original tenets, streak and milestone mechanics, limited-time category unlocks, a lighter-weight verification flow, surfacing the cash back balance at the moment of cancellation, a personalized year-in-review moment, tiered rewards for loyalty duration, and a referral program. These are earlier-stage explorations, not yet scoped or validated.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="closing">Reinventing a declining loyalty program end to end, from the research that justified the bet to the CX across 8+ surfaces, <b>reversing five years of decline and turning cash back into Amazon's fastest-growing loyalty lever for Gen Z.</b></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="name">Layne Skullerud</div>
+    <div class="role mono">UX Design Leader</div>
+  </div>
+</footer>
+
+</body>
+</html>
