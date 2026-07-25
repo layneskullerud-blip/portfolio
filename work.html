@@ -19,7 +19,7 @@
   body{margin:0; background:var(--void); color:var(--ink); font-family:'Inter',sans-serif; line-height:1.55; -webkit-font-smoothing:antialiased;}
   h1,h2{font-family:'Space Grotesk',sans-serif; font-weight:700; margin:0; letter-spacing:-0.01em;}
   .mono{font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:0.08em;}
-  .wrap{max-width:1100px; margin:0 auto; padding:0 32px;}
+  .wrap{max-width:840px; margin:0 auto; padding:0 32px;}
 
   header{padding:96px 0 56px;}
   .eyebrow{font-size:12px; color:var(--ink-dim); margin-bottom:20px;}
@@ -29,7 +29,7 @@
   /* Filter bar, the signature element: pills that actually filter, with live counts */
   .filter-bar{
     position:sticky; top:53px; z-index:19;
-    background:#0b0b0d;
+    background:rgba(11,11,13,0.97); backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
     padding:18px 0;
   }
@@ -73,8 +73,8 @@
   footer .name{font-size:15px; font-weight:600;}
   footer .role{font-size:13px; color:var(--ink-dim); margin-top:6px;}
 
-  .site-nav{position:sticky; top:0; z-index:20; height:53px; box-sizing:border-box; background:#0b0b0d; border-bottom:1px solid var(--line);}
-  .site-nav .nav-wrap{display:flex; align-items:center; height:100%; gap:24px; padding:0 32px;}
+  .site-nav{position:sticky; top:0; z-index:20; height:53px; box-sizing:border-box; background:rgba(11,11,13,0.97); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  .site-nav .nav-wrap{display:flex; align-items:center; height:100%; gap:24px; padding:0 32px; max-width:840px; margin:0 auto;}
   .site-nav a{font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-dim); text-decoration:none; transition:color 0.15s ease;}
   .site-nav a:hover, .site-nav a.current{color:var(--ink);}
 </style>
@@ -90,7 +90,6 @@
 
 <header>
   <div class="wrap">
-    <div class="eyebrow mono">Portfolio · Layne Skullerud</div>
     <h1>The full body of work.</h1>
     <p class="hero-sub">Fifteen years across AI, fashion, loyalty, and travel commerce. Filter by category, or browse everything below. Cards marked "Case study" open into a full write-up.</p>
   </div>
@@ -258,7 +257,9 @@ const WORK = [
 
 const pillsEl = document.getElementById('pills');
 const gridEl = document.getElementById('grid');
-let active = null;
+const urlParams = new URLSearchParams(window.location.search);
+const initialFilter = urlParams.get('f');
+let active = (initialFilter && CATS[initialFilter]) ? initialFilter : null;
 
 function counts() {
   const c = {};
@@ -299,7 +300,7 @@ function renderGrid() {
     const tag = w.href ? 'a' : 'div';
     const el = document.createElement(tag);
     el.className = 'card' + (w.href ? '' : ' static') + (show ? '' : ' hidden');
-    if (w.href) el.href = w.href;
+    if (w.href) el.href = w.href + (active ? '?f=' + active : '');
     el.style.setProperty('--accent', w.accent);
     el.innerHTML = `
       <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${w.accent}"></div>
@@ -321,6 +322,14 @@ function render() {
 }
 
 render();
+
+function syncFilterBarOffset() {
+  const nav = document.querySelector('.site-nav');
+  const bar = document.querySelector('.filter-bar');
+  if (nav && bar) bar.style.top = nav.getBoundingClientRect().height + 'px';
+}
+syncFilterBarOffset();
+window.addEventListener('resize', syncFilterBarOffset);
 </script>
 
 </body>
