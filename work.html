@@ -28,7 +28,7 @@
 
   /* Filter bar, the signature element: pills that actually filter, with live counts */
   .filter-bar{
-    position:sticky; top:0; z-index:10;
+    position:sticky; top:53px; z-index:10;
     background:rgba(11,11,13,0.92); backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
     padding:18px 0;
@@ -72,9 +72,21 @@
   footer .inner{padding-top:40px;}
   footer .name{font-size:15px; font-weight:600;}
   footer .role{font-size:13px; color:var(--ink-dim); margin-top:6px;}
+
+  .site-nav{position:sticky; top:0; z-index:11; background:rgba(11,11,13,0.9); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  .site-nav .nav-wrap{display:flex; align-items:center; gap:24px; padding:16px 32px;}
+  .site-nav a{font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-dim); text-decoration:none; transition:color 0.15s ease;}
+  .site-nav a:hover, .site-nav a.current{color:var(--ink);}
 </style>
 </head>
 <body>
+<nav class="site-nav">
+  <div class="nav-wrap">
+    <a href="index.html">Home</a>
+    <a href="work.html" class="current">Portfolio</a>
+    <a href="resume.html">Resume</a>
+  </div>
+</nav>
 
 <header>
   <div class="wrap">
@@ -108,6 +120,7 @@ const CATS = {
   loyalty: { label: "Loyalty",         color: "#34d399" },
   travel:  { label: "Travel",          color: "#f472b6" },
   exec:    { label: "Executive Review", color: "#94a3b8" },
+  social:  { label: "Social Commerce", color: "#fbbf24" },
 };
 
 const WORK = [
@@ -131,7 +144,7 @@ const WORK = [
     title: "Deals Page Vision",
     eyebrow: "Amazon Promotions",
     desc: "Owning the vision for how customers search for savings on Amazon, from everyday shopping to peak events like Prime Day and Black Friday Cyber Monday. MVP launching for the next major sale event in October.",
-    cats: ["ai"],
+    cats: ["ai","exec"],
     href: "deals-page.html",
     accent: "#e3a939",
   },
@@ -153,7 +166,7 @@ const WORK = [
     title: "Prime for Young Adults",
     eyebrow: "Amazon · Loyalty",
     desc: "Reinvented a struggling loyalty program for Gen Z, reversing five years of membership decline by replacing free-shipping messaging with cash back. Drove +23.8% YoY membership growth, 17% above plan, plus +$161M/yr from post-launch redemption optimization.",
-    cats: ["loyalty"],
+    cats: ["loyalty","exec"],
     href: "pya.html",
     accent: "#34d399",
   },
@@ -180,10 +193,10 @@ const WORK = [
   },
   {
     title: "Amazon Discover",
-    eyebrow: "Amazon Fashion · fka Style Feed",
+    eyebrow: "Amazon Fashion",
     desc: "Sole designer for Amazon's shoppable social content feed. Led the transformation from fashion-only to cross-category, driving +$176M annualized gross profit and reaching 78.8M unique customers.",
-    cats: ["fashion"],
-    accent: "#B24EFF",
+    cats: ["social"],
+    accent: "#fbbf24",
   },
   {
     title: "Shoppable Fashion Collages",
@@ -196,7 +209,7 @@ const WORK = [
     title: "Amazon Fashion Detail Page",
     eyebrow: "Amazon Fashion",
     desc: "Single-threaded UX owner for the Amazon Fashion Detail Page. Developed the North Star vision that earned SVP escalation.",
-    cats: ["fashion"],
+    cats: ["fashion","exec"],
     accent: "#B24EFF",
   },
   {
@@ -235,17 +248,17 @@ const WORK = [
     accent: "#94a3b8",
   },
   {
-    title: "Amazon Creator Storefront Vision",
-    eyebrow: "Amazon",
-    desc: "Details coming soon.",
-    cats: ["fashion"],
-    accent: "#B24EFF",
+    title: "Creator Storefronts for Everyone",
+    eyebrow: "Amazon · Social Commerce",
+    desc: "Took the Creator Storefront experience, built for professional influencers, and brought it to every Amazon customer as a way to share what they love with friends and family. Reached 5M US customers and drove 10x YoY growth in content creation.",
+    cats: ["social","exec"],
+    accent: "#fbbf24",
   },
 ];
 
 const pillsEl = document.getElementById('pills');
 const gridEl = document.getElementById('grid');
-let active = new Set();
+let active = null;
 
 function counts() {
   const c = {};
@@ -258,21 +271,21 @@ function renderPills() {
   const c = counts();
   pillsEl.innerHTML = '';
   const allPill = document.createElement('button');
-  allPill.className = 'pill' + (active.size === 0 ? ' active' : '');
-  allPill.style.background = active.size === 0 ? '#f1eef7' : 'transparent';
+  allPill.className = 'pill' + (active === null ? ' active' : '');
+  allPill.style.background = active === null ? '#f1eef7' : 'transparent';
   allPill.innerHTML = `<span class="dot" style="background:currentColor"></span>All <span class="count">${WORK.length}</span>`;
-  allPill.onclick = () => { active.clear(); render(); };
+  allPill.onclick = () => { active = null; render(); };
   pillsEl.appendChild(allPill);
 
   Object.entries(CATS).forEach(([key, meta]) => {
     const p = document.createElement('button');
-    const isActive = active.has(key);
+    const isActive = active === key;
     p.className = 'pill' + (isActive ? ' active' : '');
     p.style.background = isActive ? meta.color : 'transparent';
     p.style.color = isActive ? '#0b0b0d' : 'var(--ink-dim)';
     p.innerHTML = `<span class="dot" style="background:${isActive ? '#0b0b0d' : meta.color}"></span>${meta.label} <span class="count">${c[key]}</span>`;
     p.onclick = () => {
-      if (active.has(key)) active.delete(key); else active.add(key);
+      active = (active === key) ? null : key;
       render();
     };
     pillsEl.appendChild(p);
@@ -282,7 +295,7 @@ function renderPills() {
 function renderGrid() {
   gridEl.innerHTML = '';
   WORK.forEach(w => {
-    const show = active.size === 0 || w.cats.some(c => active.has(c));
+    const show = active === null || w.cats.includes(active);
     const tag = w.href ? 'a' : 'div';
     const el = document.createElement(tag);
     el.className = 'card' + (w.href ? '' : ' static') + (show ? '' : ' hidden');

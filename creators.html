@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creator Storefronts for Everyone, Layne Skullerud</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0b1420;
+    --panel:#111d2b;
+    --panel-2:#152435;
+    --line: rgba(230,240,250,0.09);
+    --ink:#eef4fa;
+    --ink-dim:#8b9bab;
+    --gold:#38bdf8;
+    --gold-soft: rgba(56,189,248,0.14);
+    --down:#e0665f;
+    --up:#6fbf8c;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--void); color:var(--ink); font-family:'Inter',sans-serif; line-height:1.55; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif; font-weight:700; margin:0; letter-spacing:-0.01em;}
+  .mono{font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:0.08em;}
+  .wrap{max-width:940px; margin:0 auto; padding:0 32px;}
+
+  header{padding:96px 0 72px; border-bottom:1px solid var(--line); position:relative; overflow:hidden;}
+  header::before{content:""; position:absolute; top:-40%; right:-10%; width:560px; height:560px; background:radial-gradient(circle, var(--gold-soft), transparent 70%); pointer-events:none;}
+  .eyebrow{font-size:12px; color:var(--gold); margin-bottom:20px;}
+  h1.hero-title{font-size:clamp(36px, 5.6vw, 60px); line-height:1.06; max-width:17ch;}
+  .hero-sub{margin-top:22px; font-size:19px; color:var(--ink-dim); max-width:60ch;}
+  .tag-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:36px;}
+  .tag{font-size:11px; padding:7px 12px; border:1px solid var(--line); border-radius:6px; color:var(--ink-dim);}
+  .tag b{color:var(--ink); font-weight:600;}
+
+  section{padding:72px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .section-title{font-size:29px; margin-bottom:28px; max-width:24ch;}
+  .lede{font-size:17px; color:var(--ink-dim); max-width:68ch; margin-bottom:8px;}
+
+  .stat-row{display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-top:36px;}
+  .stat{background:var(--panel); padding:20px 16px;}
+  .stat .n{font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; color:var(--gold);}
+  .stat .l{font-size:10.5px; color:var(--ink-dim); margin-top:6px; line-height:1.4;}
+  @media(max-width:760px){.stat-row{grid-template-columns:1fr 1fr;}}
+
+  .spec-grid{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-top:32px;}
+  .spec{background:var(--panel); padding:22px 24px;}
+  .spec .k{font-size:10px;color:var(--gold);margin-bottom:8px;}
+  .spec .v{font-size:14.5px;color:var(--ink); line-height:1.5;}
+  @media(max-width:640px){.spec-grid{grid-template-columns:1fr;}}
+
+  .theme-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:32px;}
+  .theme{padding:24px; background:linear-gradient(160deg, var(--panel-2), var(--panel)); border:1px solid var(--gold); border-radius:12px;}
+  .theme .p0{display:inline-block; font-size:10px; color:var(--gold); border:1px solid var(--gold); padding:2px 8px; border-radius:999px; margin-bottom:12px;}
+  .theme h3{font-size:16.5px; margin-bottom:8px;}
+  .theme p{font-size:13.5px; color:var(--ink-dim); margin:0;}
+  @media(max-width:700px){.theme-grid{grid-template-columns:1fr;}}
+
+  .principles{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:32px;}
+  .principle{padding:24px; background:var(--panel); border-radius:12px; border:1px solid var(--line);}
+  .principle .num{font-size:11px; color:var(--gold); margin-bottom:12px;}
+  .principle h3{font-size:16px; margin-bottom:8px;}
+  .principle p{font-size:13.5px; color:var(--ink-dim); margin:0;}
+  @media(max-width:700px){.principles{grid-template-columns:1fr;}}
+
+  .pull{margin:40px 0 0; padding:32px 36px; background:var(--panel); border-left:3px solid var(--gold); border-radius:0 12px 12px 0; font-family:'Space Grotesk',sans-serif; font-size:21px; line-height:1.4;}
+  .pull span{color:var(--ink-dim); font-family:'Inter',sans-serif; font-size:13px; display:block; margin-top:14px;}
+
+  .next-card{padding:28px 0; border-top:1px solid var(--line);}
+  .next-card:first-of-type{border-top:none;}
+  .next-card h3{font-size:18px; margin-bottom:10px;}
+  .next-card p{font-size:14.5px; color:var(--ink-dim); margin:0 0 14px; max-width:70ch;}
+
+  .connect-row{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:32px;}
+  .connect{padding:20px 22px; background:var(--panel); border:1px solid var(--line); border-radius:12px; text-decoration:none; color:inherit; display:block; transition:border-color 0.15s ease;}
+  .connect:hover{border-color:rgba(230,240,250,0.22);}
+  .connect h3{font-size:14.5px; margin-bottom:6px;}
+  .connect p{font-size:12.5px; color:var(--ink-dim); margin:0;}
+  @media(max-width:700px){.connect-row{grid-template-columns:1fr;}}
+
+  .closing{font-size:20px; font-family:'Space Grotesk',sans-serif; line-height:1.5; max-width:64ch;}
+  .closing b{color:var(--gold);}
+
+  footer{padding:64px 0 80px; text-align:center;}
+  footer .name{font-size:15px; font-weight:600;}
+  footer .role{font-size:13px; color:var(--ink-dim); margin-top:6px;}
+
+  .back-nav{position:sticky; top:0; z-index:50; padding:14px 32px; font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; backdrop-filter:blur(6px); display:flex; gap:22px;}
+  .back-nav a{color:inherit; text-decoration:none; opacity:0.7;}
+  .back-nav a:hover, .back-nav a.current{opacity:1;}
+</style>
+</head>
+<body>
+<div class="back-nav" style="background:rgba(11,20,32,0.85); color:#38bdf8; border-bottom:1px solid rgba(255,255,255,0.08);"><a href="index.html">Home</a><a href="work.html" class="current">Portfolio</a><a href="resume.html">Resume</a></div>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow mono">Amazon · Social Commerce</div>
+    <h1 class="hero-title">Creator Storefronts for Everyone</h1>
+    <p class="hero-sub">Taking the Creator Storefront experience, built for professional influencers, and bringing it to every Amazon customer, so sharing what you love with friends and family is as easy as sharing a product page.</p>
+    <div class="tag-row">
+      <div class="tag"><b>Role</b> · Lead Designer, with one supporting designer</div>
+      <div class="tag"><b>Scope</b> · CX companion + mocks for L10 review</div>
+      <div class="tag"><b>Status</b> · Launched to 5M US customers</div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">The opportunity</h2>
+    <p class="lede">Sharing products is already prevalent on Amazon, customers just couldn't create anything richer than a detail-page link. In 2024, the social share button was used 4x more (+28.5% YoY), driving $30B in iOPS (+10% YoY). The vision: make it just as easy to create and share real product content, photos, videos, reviews, idea lists, in a way that's rewarding when others find value in what you share.</p>
+    <div class="stat-row">
+      <div class="stat"><div class="n">$30B</div><div class="l">iOPS from social sharing, +10% YoY</div></div>
+      <div class="stat"><div class="n">4x</div><div class="l">social share button usage</div></div>
+      <div class="stat"><div class="n">160K</div><div class="l">content pieces created, Wk16 YTD</div></div>
+      <div class="stat"><div class="n">10x</div><div class="l">content creation YoY growth</div></div>
+      <div class="stat"><div class="n">5M</div><div class="l">US customers reached</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">Who this is for</h2>
+    <p class="lede">Three customer use cases anchored the design: people who already create and share product moments organically, just without a good tool for it.</p>
+    <div class="theme-grid">
+      <div class="theme">
+        <div class="p0 mono">Josephine</div>
+        <h3>The weekly player</h3>
+        <p>Plays tennis at least once a week and shares outfit and gear photos with friends. Uploads photos to auto-tag every product, then texts or shares the shoppable link.</p>
+      </div>
+      <div class="theme">
+        <div class="p0 mono">Eloise</div>
+        <h3>The curator</h3>
+        <p>Spends hours building beauty collages for her college sorority sisters. Purchased products are automatically turned into fun, shareable collages.</p>
+      </div>
+      <div class="theme">
+        <div class="p0 mono">Peter</div>
+        <h3>The book clubber</h3>
+        <p>A Kindle subscriber running a local book club. Texts or emails one link to a page holding all his reviews and auto-generated idea lists.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">What was designed</h2>
+    <p class="lede">Lead designer for the full CX, presented to L10 leadership. The work spanned three connected pieces.</p>
+    <div class="spec-grid">
+      <div class="spec"><div class="k mono">Customer profile</div><div class="v">Migrated customer profiles into the Creator Storefront infrastructure: four content types (photos, videos, idea lists, reviews), like and share, pinned content, and an immersive feed aligned to Creator Storefronts</div></div>
+      <div class="spec"><div class="k mono">Content creation</div><div class="v">An AI-generated content widget customers swipe through to publish personalized, seasonal draft content, plus product auto-tagging, AI-generated titles and captions, and idea lists built from a few words</div></div>
+      <div class="spec"><div class="k mono">Discovery</div><div class="v">Customer content surfaces to drive product discovery for others through the Storefront experience, measured with OPS-driven metrics as it publishes to broader surfaces</div></div>
+      <div class="spec"><div class="k mono">Review</div><div class="v">CX companion and mocks presented to L10 leadership as part of the program's executive review</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">The philosophy</h2>
+    <p class="lede">The key strategic call: extend paid creator features to customers rather than build bespoke customer features from scratch, holding off on dedicated investment until data justified it.</p>
+    <div class="principles">
+      <div class="principle">
+        <div class="num mono">Reuse</div>
+        <h3>Extend, don't rebuild</h3>
+        <p>Creator tools were more mature and could be adapted cheaply, balancing the size of the opportunity (5M customers, 10x content growth) against resource reality.</p>
+      </div>
+      <div class="principle">
+        <div class="num mono">Discovery</div>
+        <h3>Incremental, not a new feed</h3>
+        <p>Customers who meet the quality bar benefit from incremental discovery efforts. No separate Inspire-like feed built for customer content.</p>
+      </div>
+      <div class="principle">
+        <div class="num mono">Positioning</div>
+        <h3>Complement, don't replace</h3>
+        <p>Creator Storefronts for Everyone complements Social Share rather than replacing it, a richer option sitting alongside the simple share button, not competing with it.</p>
+      </div>
+      <div class="principle">
+        <div class="num mono">Restraint</div>
+        <h3>No bespoke features, yet</h3>
+        <p>No custom customer-only features until data shows exactly where customer behavior diverges from creator behavior.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">The hard part</h2>
+
+    <div class="next-card">
+      <h3>Recovering from a CEO-level escalation</h3>
+      <p>A CEO-level escalation in March 2025 flagged confusing UX: unintuitive entry points, navigation issues, and naming that didn't match how customers actually thought about the feature. Worked through rapid fixes, defaulting to the tab with content, hiding empty tabs, renaming the experience, updating entry points, to resolve the feedback.</p>
+    </div>
+
+    <div class="next-card">
+      <h3>Defining "minimum loveable," not just "minimum viable"</h3>
+      <p>The launch reached 5M customers and 160K content pieces, but real gaps remained between what shipped and a genuinely delightful experience. Led a deep dive to prioritize the features that deliver step-change value, making content creation easy, fun, and motivating, rather than just functional.</p>
+    </div>
+
+    <div class="next-card">
+      <h3>Bridging two different mental models</h3>
+      <p>Creator Storefronts were built for people creating content professionally. Adapting that infrastructure for casual customers, who share products organically rather than as a business, meant rethinking onboarding, empty states, motivational cues, and what "success" looks like for someone who isn't optimizing for commissions.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">Results</h2>
+    <div class="stat-row">
+      <div class="stat"><div class="n">5M</div><div class="l">US customers reached, pushing to 2.98M profile adoption</div></div>
+      <div class="stat"><div class="n">160K</div><div class="l">content pieces created, Wk16 YTD: 116K idea lists, 33K photos, 10K videos</div></div>
+      <div class="stat"><div class="n">10x</div><div class="l">YoY growth in content creation</div></div>
+      <div class="stat"><div class="n">4x</div><div class="l">social share usage, +28.5% YoY, $30B in iOPS</div></div>
+    </div>
+    <p class="lede" style="margin-top:28px;">Existing tabbed reviews and posts CX launched for customers, alongside a 2025 roadmap for simplified AI-powered content creation, personalized draft content, auto-tagging, and collage generation built directly from purchase history.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">Connection to broader work</h2>
+    <p class="lede">Creator Storefronts for Everyone sits at the intersection of three programs, three years of social commerce design converging into one customer-facing product.</p>
+    <div class="connect-row">
+      <div class="connect">
+        <h3>Amazon Discover</h3>
+        <p>Sole designer for the shoppable content feed that customer-generated content now flows into. Shoppable image cards, content-to-product tagging, and heart/save mechanics carry over directly.</p>
+      </div>
+      <div class="connect">
+        <h3>Shoppable Collages</h3>
+        <p>The collage concept originated during Discover, product collages with stickers, text, and backgrounds, is directly reflected in the AI-generated collage feature here.</p>
+      </div>
+      <a class="connect" href="gen-ai-fashion.html">
+        <h3>Generative AI Fashion Shopping</h3>
+        <p>The vision of customers as creators, designing, sharing, and shopping each other's content, realized here through a more pragmatic vehicle.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="closing">Led the design vision for a program that democratizes content creation for 5M+ customers, presented to L10 leadership, and navigated a CEO-level escalation recovery, <b>tying three years of social commerce design into one customer-facing product.</b></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="name">Layne Skullerud</div>
+    <div class="role mono">UX Design Leader</div>
+  </div>
+</footer>
+
+</body>
+</html>

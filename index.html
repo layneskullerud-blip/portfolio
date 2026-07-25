@@ -19,9 +19,10 @@
   html,body{height:100%;}
   body{
     margin:0; background:var(--void); color:var(--ink); font-family:'Inter',sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased;
-    display:flex; align-items:center; min-height:100vh;
+    display:flex; flex-direction:column; min-height:100vh;
     position:relative; overflow:hidden;
   }
+  .main-center{flex:1; display:flex; align-items:center;}
   body::before{
     content:""; position:absolute; top:-30%; right:-15%;
     width:640px; height:640px;
@@ -53,11 +54,22 @@
 
   .contact{margin-top:36px; font-size:13px; color:var(--ink-dim);}
   .contact a{color:var(--ink-dim); text-decoration:none; border-bottom:1px solid var(--line);}
-  .contact a:hover{color:var(--ink); border-color:var(--ink-dim);}
+  .contact a:hover{color:var(--ink); border-color:var(--ink-dim);}  .site-nav{position:sticky; top:0; z-index:50; background:rgba(11,11,13,0.9); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  .site-nav .nav-wrap{display:flex; align-items:center; gap:24px; padding:16px 32px; max-width:640px; margin:0 auto;}
+  .site-nav a{font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-dim); text-decoration:none; transition:color 0.15s ease;}
+  .site-nav a:hover, .site-nav a.current{color:var(--ink);}
 </style>
 </head>
 <body>
+<nav class="site-nav">
+  <div class="nav-wrap">
+    <a href="index.html" class="current">Home</a>
+    <a href="work.html">Portfolio</a>
+    <a href="resume.html">Resume</a>
+  </div>
+</nav>
 
+<div class="main-center">
 <div class="wrap">
   <div class="eyebrow mono">UX Design Leader</div>
   <h1>Layne Skullerud</h1>
@@ -78,6 +90,7 @@
   </div>
 
   <div class="contact"><a href="mailto:layne.skullerud@gmail.com">layne.skullerud@gmail.com</a> · 206.817.2136</div>
+</div>
 </div>
 
 </body>
